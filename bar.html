@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script type="text/javascript" src="static/js-charts/d3.min.js"></script>
+    <script type="text/javascript" src="static/js-charts/crossfilter.min.js"></script>
+    <script type="text/javascript" src="static/js-charts/dc.min.js"></script>
+    <script type="text/javascript" src="static/js-charts/queue.min.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/dc.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+
+    <title>bglynch dc.js</title>
+</head>
+
+<body>
+    <div id="egpie"></div>
+    <div id="egpie2"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <h1 id="header-title">BGLYNCH Sample Chart's</h1><br>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Chart Type: </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./index.html">Pie</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./line.html">Line</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./bar.html">Bar<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="main" class="container">
+
+        <!---->
+        <h2>BAR CHARTS</h2>
+        <hr/>
+        <div  class='row col-12'>
+            <div id="bar01" class='col-7'></div>
+            <ul class="list-group list-group-flush col-4">
+                <li class="list-group-item">.dimension(ageDimension)</li>
+                <li class="list-group-item">.group(ageGroup)</li>
+                <li class="list-group-item">.width(400)</li>
+                <li class="list-group-item">.height(200)</li>
+                <li class="list-group-item">.x(d3.scale.linear().domain([15, 70]))</li>
+                <li class="list-group-item">.brushOn(false)</li>
+                <li class="list-group-item">.yAxisLabel("Count")</li>
+                <li class="list-group-item">.xAxisLabel("Age")</li>
+            </ul>
+        </div>
+        <div  class='row col-12'>
+            <div id="bar02" class='col-7'></div>
+            <ul class="list-group list-group-flush col-4">
+                <li class="list-group-item">.centerBar(true)</li>
+                <li class="list-group-item">.round(function(n) { return Math.floor(n) + 0.5; })</li>
+
+            </ul>
+        </div>
+        <div  class='row col-12'>
+            <div id="bar03" class='col-7'></div>
+            <ul class="list-group list-group-flush col-4">
+                <li class="list-group-item">.dimension(genderDimension)</li>
+                <li class="list-group-item">.group(genderGroup)</li>
+                <li class="list-group-item">.x(d3.scale.ordinal())</li>
+                <li class="list-group-item">.xUnits(dc.units.ordinal)</li>
+
+            </ul>
+        </div>
+        <div  class='row col-12'>
+            <div id="bar04" class='col-7'></div>
+            <ul class="list-group list-group-flush col-4">
+                <li class="list-group-item">.barPadding(0.5)</li>
+
+            </ul>
+        </div>
+        <div  class='row col-12'>
+            <div id="bar05" class='col-7'></div>
+            <ul class="list-group list-group-flush col-4">
+                <li class="list-group-item">.gap(50)</li>
+
+            </ul>
+        </div>
+        <div  class='row col-12'>
+            <div id="bar06" class='col-7'></div>
+            <ul class="list-group list-group-flush col-4">
+                <li class="list-group-item">.barPadding(0.1)</li>
+                <li class="list-group-item">.outerPadding(2)</li>
+
+            </ul>
+        </div>        <!---->
+
+    </div>
+
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="static/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+    <script language="javascript">
+            /* global dc, crossfilter, d3 */
+
+
+            d3.csv("data/people.csv", function(errors, people) {
+                console.log(people);
+                var mycrossfilter = crossfilter(people);
+
+                // gender dimension
+                var ageDimension = mycrossfilter.dimension(function(data) {
+                    return ~~((Date.now() - new Date(data.DOB)) / (31557600000));
+                });
+                var ageGroup = ageDimension.group().reduceCount();
+                
+                var genderDimension = mycrossfilter.dimension(function(data) {return data.gender;});
+                var genderGroup = genderDimension.group().reduceCount();
+
+
+                dc.barChart('#bar01')
+                    .dimension(ageDimension)
+                    .group(ageGroup)
+                    .width(600)
+                    .height(300)
+                    .x(d3.scale.linear().domain([15, 70]))
+                    .brushOn(true)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Age")
+                    ;
+
+                dc.barChart('#bar02')
+                    .dimension(ageDimension)
+                    .group(ageGroup)
+                    .width(600)
+                    .height(300)
+                    .x(d3.scale.linear().domain([15, 70]))
+                    .brushOn(true)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Age")
+                    .centerBar(true)
+                    .round(function(n) { return Math.floor(n) + 0.5; })
+                    ;
+
+                dc.barChart('#bar03')
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width(600)
+                    .height(300)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .x(d3.scale.ordinal())
+                    .xUnits(dc.units.ordinal)
+                    ;
+                    
+                dc.barChart('#bar04')
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width(600)
+                    .height(300)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .barPadding(0.5)
+                    .x(d3.scale.ordinal())
+                    .xUnits(dc.units.ordinal)
+                    ;
+                    
+                dc.barChart('#bar05')
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width(600)
+                    .height(300)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .gap(50)
+                    .x(d3.scale.ordinal())
+                    .xUnits(dc.units.ordinal)
+                    ;
+                    
+                dc.barChart('#bar06')
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width(600)
+                    .height(300)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .barPadding(0.1)
+                    .outerPadding(2)
+                    .x(d3.scale.ordinal())
+                    .xUnits(dc.units.ordinal)
+                    ;
+
+
+
+                dc.renderAll();
+            });
+        </script>
+</body>
+
+</html>

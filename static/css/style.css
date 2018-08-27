@@ -38,9 +38,13 @@ div#egpie2 {
     height: 150px;
     position: fixed;
     z-index: 10;
-    top: 168px;
+    bottom: 0px;
 }
 
 .pie-label{
     font-size: small;
+}
+
+#header-title {
+    color: white;
 }
