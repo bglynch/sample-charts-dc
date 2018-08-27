@@ -1,18 +1,12 @@
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+# <img src="https://dc-js.github.io/dc.js/dc.logo.png" height=90> Sample DC Charts
+### What is the website for?
+This repository is a playground for exploring the different methods of the dc.js chart classes.
 
+[dc.js documentation](http://dc-js.github.io/dc.js/docs/html/index.html)
 
-Hi there! Welcome to Cloud9 IDE!
-
-To get you started, create some files, play with the terminal,
-or visit http://docs.c9.io for our documentation.
-If you want, you can also go watch some training videos at
-http://www.youtube.com/user/c9ide.
-
-Happy coding!
-The Cloud9 IDE team
+### Tech used
+Bootstrap  
+d3.js library  
+dc.js library  
+crossfilter.js library 
