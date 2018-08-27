@@ -1,0 +1,46 @@
+#main {
+    background-color: gainsboro;
+}
+
+div.dc-chart {
+    background-color: white;
+    margin: 10px;
+    border-radius: 20px;
+    height: 300px;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 100;
+    font-size: 45px;
+}
+
+ul.list-group.list-group-flush {
+    margin: 10px;
+    padding: 10px 0px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+li.list-group-item {
+    padding: 4px 24px;
+    background-color: transparent;
+    border:none;
+    font-size: 12px;
+}
+
+div#egpie {
+    height: 150px;
+    position: fixed;
+    z-index: 10;
+}
+div#egpie2 {
+    height: 150px;
+    position: fixed;
+    z-index: 10;
+    top: 168px;
+}
+
+.pie-label{
+    font-size: small;
+}
