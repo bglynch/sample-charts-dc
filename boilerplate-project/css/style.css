@@ -1,0 +1,14 @@
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+}
+.navbar {
+    height: 4rem;
+}
+.main {
+    background: azure;
+    height: 100%;
+    margin-top: 4rem;
+}
