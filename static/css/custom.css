@@ -1,0 +1,12 @@
+code[class*=language-],pre[class*=language-] {
+    font-size: 0.9em;
+}
+
+.line-highlight:before
+{
+display: none;
+}
+
+pre[data-line] {
+	padding-left: 1rem;
+}

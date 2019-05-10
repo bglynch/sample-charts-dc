@@ -34,7 +34,7 @@ Html snippert for loading the necessary libraries
 ```
 
 ### Development
-Load the data
+Load the data.  
 Here we load a json file. [List fo other file acceptable file types](https://github.com/d3/d3/blob/master/API.md#fetches-d3-fetch)
 ##### js/charts.js
 ```javascript
