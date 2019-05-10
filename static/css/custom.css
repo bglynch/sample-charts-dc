@@ -2,8 +2,7 @@ code[class*=language-],pre[class*=language-] {
     font-size: 0.9em;
 }
 
-.line-highlight:before
-{
+.line-highlight:before{
 display: none;
 }
 
@@ -11,7 +10,8 @@ pre[data-line] {
 	padding-left: 1rem;
 }
 
-@media (min-width: 1200px)
+@media (min-width: 1200px){
 .container {
     max-width: 1300px;
+}
 }
