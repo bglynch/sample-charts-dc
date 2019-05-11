@@ -57,7 +57,8 @@ function show_areas_of_properties1(ndx) {
 
     let chart = dc.rowChart("#areas_of_properties1");
 
-    chart.width($(chart.anchor()).parent().width())
+    dc.rowChart("#areas_of_properties1")
+        .width($(dc.rowChart("#areas_of_properties1").anchor()).parent().width())
         .height(330)
         .dimension(dim)
         .group(group)
