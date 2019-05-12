@@ -13,6 +13,9 @@ pre[data-line] {
 pre strong {
     border-bottom: 1px solid darkgrey;
 }
+.description-text{
+    font-size: 0.7rem;
+}
 
 @media (min-width: 1200px){
 .container {
