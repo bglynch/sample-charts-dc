@@ -9,8 +9,8 @@
     <!-- Javascript: Charting Libraries -->
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-    <script src="http://unpkg.com/dc@3/dc.js"></script>
-    <link rel="stylesheet" href="http://unpkg.com/dc@3/dc.css" />
+    <script src="https://unpkg.com/dc@3/dc.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dc@3/dc.css" />
 
     <!-- Prism: used for code block display -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism.min.css" />
@@ -122,12 +122,11 @@
 
         </section>
         <section>
-                <h3 class="mt-4">Display the Data</h3>
-
+            <h3 class="mt-4">Display the Data</h3>
             <div class="row">
                 <div class="col-xs-12 col-sm-2 text-center">
                     <div id="bar01" class="custom-chart"></div>
-                    <pre data-line="11"><code class="language-javascript indentFix">
+                    <pre><code class="language-javascript indentFix">
                         barChart01
                             .dimension(genderDimension)
                             .group(genderGroup)
@@ -140,76 +139,110 @@
                 <div class="col-xs-12 col-sm-5 text-center">
                     <div id="line01" class="custom-chart"></div>
                     <pre><code class="language-javascript indentFix">
-                                dc.lineChart('#line01')
-                                    .dimension(ageDimension)
-                                    .group(ageGroup)
-                                    .width(650)
-                                    .height(300)
-                                    .x(d3.scaleLinear().domain([15, 70]))
-                                    .xUnits(d3.timeDays)
-                                    .brushOn(true)
-                                    .yAxisLabel("Count")
-                                    .xAxisLabel("Age");
+                        lineChart01
+                            .dimension(ageDimension)
+                            .group(ageGroup)
+                            .width($(lineChart01.anchor()).parent().width())
+                            .height(300)
+                            .x(d3.scaleLinear().domain([15, 70]))
+                            .brushOn(true)
+                            .yAxisLabel("Count")
+                            .xAxisLabel("Age");
                     </code></pre>
                 </div>
                 <div class="col-xs-12 col-sm-5 text-center">
                     <div id="line02" class="custom-chart"></div>
-                    <pre data-line="11,12,13"><code class="language-javascript indentFix" >
-                                dc.lineChart('#line02')
-                                    .dimension(ageDimension)
-                                    .group(ageGroup)
-                                    .width(650)
-                                    .height(300)
-                                    .x(d3.scaleLinear().domain([15, 70]))
-                                    .brushOn(false)
-                                    .yAxisLabel("Count")
-                                    .xAxisLabel("Age")
-                                    .dashStyle([12, 4, 4, 4])
-                                    .renderHorizontalGridLines(true)
-                                    .renderVerticalGridLines(true);
+                    <pre data-line="2,3,10,14,15,16,17"><code class="language-javascript indentFix" >
+                        var min = ageDimension.bottom(1)[0].age;
+                        var max = ageDimension.top(1)[0].age;
+
+                        lineChart02
+                            .dimension(ageDimension)
+                            .group(ageGroup)
+                            .width($(lineChart02.anchor()).parent().width())
+                            .height(300)
+                            .x(d3.scaleLinear().domain([min, max]))
+                            .brushOn(false)
+                            .yAxisLabel("Count")
+                            .xAxisLabel("Age")
+                            .dashStyle([12, 4, 4, 4])
+                            .renderHorizontalGridLines(true)
+                            .renderVerticalGridLines(true)
+                            .elasticY(true);
                     </code></pre>
                 </div>
             </div>
 
             <div class="row mt-5">
-                <div class="col-xs-12 col-sm-6 text-center">
-                    <div id="line03" class="custom-chart"></div>
-                    <pre data-line="11,12"><code class="language-javascript indentFix">
-                                dc.lineChart('#line03')
-                                    .dimension(ageDimension)
-                                    .group(ageGroup)
-                                    .width(650)
-                                    .height(300)
-                                    .x(d3.scaleLinear().domain([15, 70]))
-                                    .brushOn(false)
-                                    .yAxisLabel("Count")
-                                    .xAxisLabel("Age")
-                                    .dotRadius(20)
-                                    .renderArea(true);
-                            </code></pre>
+                <div class="col-xs-12 col-sm-2 text-center">
+                    <div id="bar02" class="custom-chart"></div>
+                    <pre><code class="language-javascript indentFix">
+                        barChart02
+                            .dimension(genderDimension)
+                            .group(genderGroup)
+                            .width($(barChart01.anchor()).parent().width())
+                            .height(300)
+                            .x(d3.scaleBand())
+                            .xUnits(dc.units.ordinal);
+                    </code></pre>
                 </div>
-                <div class="col-xs-12 col-sm-6 text-center">
+                <div class="col-xs-12 col-sm-5 text-center">
+                    <div id="line03" class="custom-chart"></div>
+                    <pre data-line="4,11,12,13"><code class="language-javascript indentFix">
+                        lineChart03
+                            .dimension(ageDimension)
+                            .group(remove_empty_bins(ageGroup))
+                            .width($(lineChart03.anchor()).parent().width())
+                            .height(300)
+                            .x(d3.scaleLinear().domain([15, 70]))
+                            .brushOn(false)
+                            .yAxisLabel("Count")
+                            .xAxisLabel("Age")
+                            .dotRadius(20)
+                            .renderArea(true)
+                            .elasticX(true);
+                    </code></pre>
+                </div>
+                <div class="col-xs-12 col-sm-5 text-center">
                     <div id="line04" class="custom-chart"></div>
                     <pre data-line="11,12"><code class="language-javascript indentFix" >
-                                dc.lineChart('#line04')
-                                    .dimension(ageDimension)
-                                    .group(ageGroup)
-                                    .width(650)
-                                    .height(300)
-                                    .x(d3.scaleLinear().domain([15, 70]))
-                                    .brushOn(false)
-                                    .yAxisLabel("Count")
-                                    .xAxisLabel("Age")
-                                    .renderArea(true)
-                                    .renderDataPoints({ radius: 3, fillOpacity: 0.8, strokeOpacity: 0.0 });
-                            </code></pre>
+                        lineChart04
+                            .dimension(ageDimension)
+                            .group(ageGroup)
+                            .width($(lineChart04.anchor()).parent().width())
+                            .height(300)
+                            .x(d3.scaleLinear().domain([15, 70]))
+                            .brushOn(false)
+                            .yAxisLabel("Count")
+                            .xAxisLabel("Age")
+                            .renderArea(true)
+                            .renderDataPoints({ radius: 3, fillOpacity: 0.8, strokeOpacity: 0.0 });
+                    </code></pre>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-5">
 
+                <div class="col-xs-12 col-sm-5 text-center">
+                    <div id="line05" class="custom-chart"></div>
+                    <pre data-line="4,11,12,13"><code class="language-javascript indentFix">
+                        lineChart03
+                            .dimension(ageDimension)
+                            .group(remove_empty_bins(ageGroup))
+                            .width($(lineChart03.anchor()).parent().width())
+                            .height(300)
+                            .x(d3.scaleLinear().domain([15, 70]))
+                            .brushOn(false)
+                            .yAxisLabel("Count")
+                            .xAxisLabel("Age")
+                            .dotRadius(20)
+                            .renderArea(true)
+                            .elasticX(true);
+                    </code></pre>
+                </div>
 
             </div>
+
         </section>
 
     </div>
@@ -245,22 +278,40 @@
 
         d3.csv("data/people.csv", function (errors, peopleData) {
 
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var simpleDateFormat = d3.timeParse("%m/%Y");
+            // Establish the desired formatting options using locale.format():
+            // https://github.com/d3/d3-time-format/blob/master/README.md#locale_format
+            var formatDay = d3.timeFormat("%a"),
+                formatWeek = d3.timeFormat("%b %d"),
+                formatMonth = d3.timeFormat("%B"),
+                formatYear = d3.timeFormat("%Y");
+
             peopleData.forEach(function (d) {
                 if (d.CreditCardType == "") {
                     d.CreditCardType = "no data"
                 }
+
+                d.age = ~~((Date.now() - new Date(d.DOB)) / (31557600000));
+                d.DOB2 = parseTime(d.DOB);
+                d.DOB3 = formatDay(d.DOB2);
+                d.DOB4 = formatWeek(d.DOB2);
+                d.DOB5 = formatMonth(d.DOB2);
+                d.DOB6 = formatYear(d.DOB2);
+
+                d.ageCat = setAgeGroup(d.age);
             });
+
             var ndx = crossfilter(peopleData);
 
+            var ageDimension = ndx.dimension(function (d) { return d.age })
+            var genderDimension = ndx.dimension(function (d) { return d.gender; });
+            var DOBdim = ndx.dimension(function(d){return d.DOB2})
 
-
-            var ageDimension = ndx.dimension(function (data) {
-                return ~~((Date.now() - new Date(data.DOB)) / (31557600000));
-            });
             var ageGroup = ageDimension.group().reduceCount();
-
-            var genderDimension = ndx.dimension(function (data) { return data.gender; });
             var genderGroup = genderDimension.group().reduceCount();
+            var DOBGroup = DOBdim.group().reduceCount();
+
 
 
             var pieDim = ndx.dimension(function (data) {
@@ -277,15 +328,36 @@
             });
             var pieGroup = pieDim.group();
 
+            function remove_empty_bins(source_group) {
+                return {
+                    all: function () {
+                        return source_group.all().filter(function (d) {
+                            //return Math.abs(d.value) > 0.00001; // if using floating-point numbers
+                            return d.value !== 0; // if integers only
+                        });
+                    }
+                };
+            }
+
             // instanciate the charts
             var barChart01 = dc.barChart('#bar01'),
+                barChart02 = dc.barChart('#bar02'),
                 lineChart01 = dc.lineChart('#line01'),
                 lineChart02 = dc.lineChart('#line02'),
                 lineChart03 = dc.lineChart('#line03'),
                 lineChart04 = dc.lineChart('#line04');
+                lineChart05 = dc.lineChart('#line05');
 
             // design the chart
             barChart01
+                .dimension(pieDim)
+                .group(pieGroup)
+                .width($(barChart01.anchor()).parent().width())
+                .height(300)
+                .x(d3.scaleBand())
+                .xUnits(dc.units.ordinal);
+
+            barChart02
                 .dimension(genderDimension)
                 .group(genderGroup)
                 .width($(barChart01.anchor()).parent().width())
@@ -303,14 +375,15 @@
                 .yAxisLabel("Count")
                 .xAxisLabel("Age");
 
+            var min = ageDimension.bottom(1)[0].age;
+            var max = ageDimension.top(1)[0].age;
             lineChart02
                 .dimension(ageDimension)
                 .group(ageGroup)
                 .width($(lineChart02.anchor()).parent().width())
                 .height(300)
-                .x(d3.scaleLinear().domain([15, 70]))
+                .x(d3.scaleLinear().domain([min, max]))
                 .brushOn(false)
-                .curve(d3.curveLinear)
                 .yAxisLabel("Count")
                 .xAxisLabel("Age")
                 .dashStyle([12, 4, 4, 4])
@@ -321,15 +394,16 @@
 
             lineChart03
                 .dimension(ageDimension)
-                .group(ageGroup)
+                .group(remove_empty_bins(ageGroup))
                 .width($(lineChart03.anchor()).parent().width())
                 .height(300)
-                .x(d3.scaleLinear().domain([15, 70]))
+                .x(d3.scaleLinear().domain([15, 75]))
                 .brushOn(false)
                 .yAxisLabel("Count")
                 .xAxisLabel("Age")
                 .dotRadius(20)
-                .renderArea(true);
+                .renderArea(true)
+                .elasticX(true);
 
             lineChart04
                 .dimension(ageDimension)
@@ -343,9 +417,36 @@
                 .renderArea(true)
                 .renderDataPoints({ radius: 3, fillOpacity: 0.8, strokeOpacity: 0.0 });
 
+            lineChart05
+                .dimension(DOBdim)
+                .group(DOBGroup)
+                .width($(lineChart04.anchor()).parent().width())
+                .height(300)
+                .brushOn(false)
+                .yAxisLabel("Count")
+                .xAxisLabel("Age")
+                .renderArea(true)
+                .renderDataPoints({ radius: 3, fillOpacity: 0.8, strokeOpacity: 0.0 })
+                .x(d3.scaleTime()
+                    .domain([new Date(1970, 0, 1), new Date()])
+                    .range(["red","green"])
+                    );
+
 
             dc.renderAll();
         });
+
+        function setAgeGroup(age) {
+            if (age >= 50) {
+                return "Old";
+            }
+            else if (age > 30) {
+                return "Middle";
+            }
+            else {
+                return "Young";
+            }
+        }
 
     </script>
 </body>
