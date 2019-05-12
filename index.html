@@ -66,7 +66,7 @@
         <section>
             <div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie01" class="custom-chart"></div>
                         <pre><code class="language-javascript indentFix" linehighlight="5">
                             dc.pieChart('#pie01')
@@ -77,7 +77,7 @@
                                 .radius(75);
                         </code></pre>
                     </div>
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie02" class="custom-chart"></div>
                         <pre data-line="8,9"><code class="language-javascript indentFix">
                             dc.pieChart('#pie02')
@@ -90,7 +90,7 @@
                                 .drawPaths(false);
                         </code></pre>
                     </div>
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie03" class="custom-chart"></div>
                         <pre data-line="9"><code class="language-javascript indentFix" >
                             dc.pieChart('#pie03')
@@ -103,9 +103,7 @@
                                 .drawPaths(true);
                         </code></pre>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie04" class="custom-chart"></div>
                         <pre data-line="8"><code class="language-javascript indentFix" >
                             dc.pieChart('#pie04')
@@ -117,7 +115,9 @@
                                 .externalRadiusPadding(20);
                         </code></pre>
                     </div>
-                    <div class="col-xs-12 col-sm-4 text-center">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 text-center">
                         <div id="pie05" class="custom-chart"></div>
                         <pre data-line="8,9,10,11,12,13,14"><code class="language-javascript indentFix">
                             dc.pieChart('#pie05')
@@ -131,12 +131,13 @@
                                     chart
                                         .selectAll('text.pie-slice')
                                         .text(function (d) {
-                                            return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
+                                            return d.data.key + ' ' + 
+                                            dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                                         });
                                 });
                         </code></pre>
                     </div>
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie06" class="custom-chart"></div>
                         <pre data-line="8"><code class="language-javascript indentFix">
                             dc.pieChart('#pie06')
@@ -148,9 +149,7 @@
                                 .minAngleForLabel(2);
                         </code></pre>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie07" class="custom-chart"></div>
                         <pre data-line="8"><code class="language-javascript indentFix">
                             dc.pieChart('#pie07')
@@ -162,7 +161,9 @@
                                 .slicesCap(2);
                         </code></pre>
                     </div>
-                    <div class="col-xs-12 col-sm-4 text-center">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie08" class="custom-chart"></div>
                         <pre data-line="8,9,10"><code class="language-javascript indentFix">
                             dc.pieChart('#pie08')
@@ -176,7 +177,7 @@
                                 .ordinalColors(['red', 'green', 'blue']);
                         </code></pre>
                     </div>
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="col-xs-12 col-sm-3 text-center">
                         <div id="pie09" class="custom-chart"></div>
                         <pre data-line="8,9,10,11,12,13"><code class="language-javascript indentFix" linehighlight="5">
                             dc.pieChart('#pie09')
