@@ -9,8 +9,8 @@
     <!-- Javascript: Charting Libraries -->
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-    <script src="http://unpkg.com/dc@3/dc.js"></script>
-    <link rel="stylesheet" href="http://unpkg.com/dc@3/dc.css" />
+    <script src="https://unpkg.com/dc@3/dc.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dc@3/dc.css" />
 
     <!-- Prism: used for code block display -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism.min.css" />
@@ -64,11 +64,11 @@
         <h2>PIE CHARTS</h2>
         <hr />
         <section>
-            <div >
+            <div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 text-center">
                         <div id="pie01" class="custom-chart"></div>
-                        <pre ><code class="language-javascript indentFix" linehighlight="5">
+                        <pre><code class="language-javascript indentFix" linehighlight="5">
                             dc.pieChart('#pie01')
                                 .dimension(petDimension)
                                 .group(petGroup)
@@ -198,6 +198,17 @@
         </section>
     </div>
 
+    <!-- Optional JavaScript for Bootstrap -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script>
         var toFix = document.getElementsByClassName("indentFix");
         for (var elem = 0, elems = toFix.length; elem < elems; elem++) {
@@ -224,26 +235,37 @@
             });
             var petGroup = petDimension.group().reduceCount();
 
-            dc.pieChart('#pie01')
+            // instanciate the charts
+            var barChart01 = dc.pieChart('#pie01'),
+                barChart02 = dc.pieChart('#pie02'),
+                barChart03 = dc.pieChart('#pie03'),
+                barChart04 = dc.pieChart('#pie04'),
+                barChart05 = dc.pieChart('#pie05'),
+                barChart06 = dc.pieChart('#pie06'),
+                barChart07 = dc.pieChart('#pie07'),
+                barChart08 = dc.pieChart('#pie08'),
+                barChart09 = dc.pieChart('#pie09');
+
+            barChart01
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart01.anchor()).parent().width())
                 .height(300)
                 .radius(75);
 
-            dc.pieChart('#pie02')
+            barChart02
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart02.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .externalLabels(30)
                 .drawPaths(false);
 
-            dc.pieChart('#pie03')
+            barChart03
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart03.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .externalLabels(30)
@@ -251,18 +273,18 @@
 
             // ========================
 
-            dc.pieChart('#pie04')
+            barChart04
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart04.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .externalRadiusPadding(20);
 
-            dc.pieChart('#pie05')
+            barChart05
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart05.anchor()).parent().width())
                 .height(300)
                 .radius(100)
                 .innerRadius(20)
@@ -275,36 +297,36 @@
 
                 });
 
-            dc.pieChart('#pie06')
+            barChart06
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart06.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .minAngleForLabel(2);
 
-            dc.pieChart('#pie07')
+            barChart07
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart07.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .slicesCap(2);
 
-            dc.pieChart('#pie08')
+            barChart08
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart08.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .slicesCap(2)
                 .othersLabel('Other Animals')
                 .ordinalColors(['red', 'green', 'blue']);
 
-            dc.pieChart('#pie09')
+            barChart09
                 .dimension(petDimension)
                 .group(petGroup)
-                .width(350)
+                .width($(barChart09.anchor()).parent().width())
                 .height(300)
                 .radius(75)
                 .renderLabel(false)
@@ -324,17 +346,7 @@
             dc.renderAll();
         });
     </script>
-    <!-- Optional JavaScript for Bootstrap -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+
 </body>
 
 </html>
