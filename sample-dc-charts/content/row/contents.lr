@@ -1,0 +1,147 @@
+title: Row Charts
+---
+body:
+<section>
+  <div class="row">
+    <div class="col-3">
+      <div id="rowChart01" class="custom-chart"></div>
+      <pre data-line="9,10,11,12,13,14,15,16,17"><code class="language-javascript indentFix" >
+        rowChart01
+          .dimension(genderDimension)
+          .group(genderGroup)
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200);
+      </code></pre>
+      <dl class="description-text">
+        <dt>..</dt>
+        <dd>- Basic row chart</dd>
+      </dl>
+    </div>
+    <div class="col-3">
+      <div id="rowChart02" class="custom-chart"></div>
+      <pre data-line="7,8"><code class="language-javascript indentFix" >
+        rowChart01
+          .dimension(genderDimension)
+          .group(genderGroup)
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200)
+          .elasticX(true)
+          .gap(20);
+      </code></pre>
+      <dl class="description-text">
+        <dt>elasticX</dt><dd>-  x axis will rescale to auto-fit the data range</dd>
+        <dt>gap</dt><dd>-  set the vertical gap space between rows </dd>
+      </dl>
+    </div>
+    <div class="col-3">
+      <div id="rowChart03" class="custom-chart"></div>
+      <pre data-line="9,10,11,12,13,14,15,16,17"><code class="language-javascript indentFix" >
+        rowChart01
+          .dimension(genderDimension)
+          .group(genderGroup)
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200);
+      </code></pre>
+      <dl class="description-text">
+        <dt>..</dt>
+        <dd>- Basic row chart</dd>
+      </dl>
+    </div>
+    <div class="col-3">
+      <div id="rowChart04" class="custom-chart"></div>
+      <pre data-line="9,10,11,12,13,14,15,16,17"><code class="language-javascript indentFix" >
+        rowChart01
+          .dimension(genderDimension)
+          .group(genderGroup)
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200);
+      </code></pre>
+      <dl class="description-text">
+        <dt>..</dt>
+        <dd>- Basic row chart</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+---
+scripts:
+<script>
+  var toFix = document.getElementsByClassName("indentFix");
+  for (var elem = 0, elems = toFix.length; elem < elems; elem++) {
+    var lines = toFix[elem].innerHTML.split("\n");
+    var line = lines[1];
+    var leadingSpaces = 1;
+    while (line.charAt(leadingSpaces) == " ") { leadingSpaces++; }
+    for (var i = 1, len = lines.length; i < len; i++) {
+      lines[i] = lines[i].slice(leadingSpaces);
+    }
+    toFix[elem].innerHTML = lines.join("\n");
+  }
+</script>
+
+<script language="javascript">
+  /* global dc, crossfilter, d3 */
+  d3.csv('../data/people.csv')
+    .then(function (data) {
+      makeGraphs(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+
+  function makeGraphs(peopleData) {
+    let ndx = crossfilter(peopleData);
+
+    // gender dimension
+    let ageDimension = ndx.dimension(function (data) {
+      return ~~((Date.now() - new Date(data.DOB)) / (31557600000));
+    });
+    let genderDimension = ndx.dimension(function (data) { return data.gender; }),
+        maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; });
+        creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; });
+
+    // create groups
+    let ageGroup = ageDimension.group().reduceCount(),
+        genderGroup = genderDimension.group().reduceCount();
+        maritalGroup = maritalDimension.group().reduceCount();
+        creditCardGroup = creditCardDimension.group().reduceCount();
+
+
+    // instanciate the charts
+    let rowChart01 = dc.rowChart('#rowChart01');
+        rowChart02 = dc.rowChart('#rowChart02'),
+        rowChart03 = dc.rowChart('#rowChart03'),
+        rowChart04 = dc.rowChart('#rowChart04'),
+
+
+
+    rowChart01
+      .dimension(genderDimension)
+      .group(genderGroup)
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200);
+    
+    rowChart02
+      .dimension(maritalDimension)
+      .group(maritalDimension.group())
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200)
+      .elasticX(true)
+      .gap(20);
+    
+    rowChart03
+      .dimension(creditCardDimension)
+      .group(creditCardGroup)
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200);
+  
+    rowChart04
+      .dimension(genderDimension)
+      .group(genderGroup)
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200);
+
+    dc.renderAll();
+  };
+</script>
