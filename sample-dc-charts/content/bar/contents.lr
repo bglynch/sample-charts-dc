@@ -1,0 +1,262 @@
+title: Bar Charts
+---
+body:
+<section>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 text-center">
+            <div id="bar01" class="custom-chart"></div>
+            <pre><code class="language-javascript indentFix">
+                barChart01
+                    .dimension(ageDimension)
+                    .group(ageGroup)
+                    .width($(barChart01.anchor()).parent().width())
+                    .height(200)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Age")
+                    .x(d3.scaleLinear().domain([15, 70]))
+                    .brushOn(true);
+            </code></pre>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-center">
+            <div id="bar02" class="custom-chart"></div>
+            <pre data-line="11,12"><code class="language-javascript indentFix">
+                barChart02
+                    .dimension(ageDimension)
+                    .group(ageGroup)
+                    .width($(barChart02.anchor()).parent().width())
+                    .height(200)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Age")
+                    .x(d3.scaleLinear().domain([15, 70]))
+                    .brushOn(true)
+                    .elasticY(true)
+                    .centerBar(true);
+            </code></pre>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div id="bar03" class="custom-chart"></div>
+            <pre data-line="9,10,11,12,13,14,15,16,17"><code class="language-javascript indentFix" >
+                barChart03
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width($(barChart03.anchor()).parent().width())
+                    .height(200)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .x(d3.scaleOrdinal())
+                    .xUnits(dc.units.ordinal)
+                    .title(function (d) { return d.key + ': ' + d.value; })
+                    .label(function(d) { 
+                        var all = ndx.groupAll().reduceCount().value()
+                        return d.data.value +" of "+all; 
+                    })
+                    .margins({ top: 20, right: 50, bottom: 30, left: 80 })
+                    .clipPadding(20);
+            </code></pre>
+            <dl class="description-text">
+                <dt>.title</dt>
+                <dd>- Shows when hovering over a bar.</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-xs-12 col-sm-4">
+            <div id="bar04" class="custom-chart"></div>
+            <pre data-line="11,12,13,14,15,16"><code class="language-javascript indentFix">
+                barChart04
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width($(barChart04.anchor()).parent().width())
+                    .height(200)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .x(d3.scaleOrdinal())
+                    .xUnits(dc.units.ordinal)
+                    .y(d3.scaleLinear().domain([0, 600]))
+                    .barPadding(0.1)
+                    .label(function(d) { 
+                        var all = ndx.groupAll().reduceCount().value()
+                        return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)'; }
+                        );
+            </code></pre>
+            <dl class="description-text">
+                <dt>.barPadding</dt>
+                <dd>- Get or set the spacing between bars as a fraction of bar size.<br>
+                    - Valid values are between 0-1.</dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div id="bar05" class="custom-chart"></div>
+            <pre data-line="11"><code class="language-javascript indentFix">
+                barChart05
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width($(barChart05.anchor()).parent().width())
+                    .height(200)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .x(d3.scaleOrdinal())
+                    .xUnits(dc.units.ordinal)
+                    .gap(50);
+            </code></pre>
+            <dl class="description-text">
+                <dt>.gap</dt>
+                <dd>- Manually set fixed gap (in px) between bars</dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div id="bar06" class="custom-chart"></div>
+            <pre data-line="11,12"><code class="language-javascript indentFix" >
+                barChart06
+                    .dimension(genderDimension)
+                    .group(genderGroup)
+                    .width($(barChart06.anchor()).parent().width())
+                    .height(200)
+                    .yAxisLabel("Count")
+                    .xAxisLabel("Sex")
+                    .x(d3.scaleOrdinal())
+                    .xUnits(dc.units.ordinal)
+                    .barPadding(0.1)
+                    .outerPadding(2);
+            </code></pre>
+            <dl class="description-text">
+                <dt>.outerPadding</dt>
+                <dd>- Get or set the outer padding on an ordinal bar chart<br>
+                    - Will pad the width by padding * barWidth on each side of the chart</dd>
+            </dl>
+        </div>
+    </div>
+</section>
+---
+scripts:
+<script>
+    var toFix = document.getElementsByClassName("indentFix");
+    for (var elem = 0, elems = toFix.length; elem < elems; elem++) {
+        var lines = toFix[elem].innerHTML.split("\n");
+        var line = lines[1];
+        var leadingSpaces = 1;
+        while (line.charAt(leadingSpaces) == " ") { leadingSpaces++; }
+        for (var i = 1, len = lines.length; i < len; i++) {
+            lines[i] = lines[i].slice(leadingSpaces);
+        }
+        toFix[elem].innerHTML = lines.join("\n");
+    }
+</script>
+
+<script language="javascript">
+    /* global dc, crossfilter, d3 */
+    d3.csv('../data/people.csv')
+        .then(function (data) {
+            makeGraphs(data);
+            // draw chart in here!
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+    function makeGraphs(peopleData) {
+        var ndx = crossfilter(peopleData);
+
+        // gender dimension
+        var ageDimension = ndx.dimension(function (data) {
+            return ~~((Date.now() - new Date(data.DOB)) / (31557600000));
+        });
+        var genderDimension = ndx.dimension(function (data) { return data.gender; });
+
+        var ageGroup = ageDimension.group().reduceCount();
+        var genderGroup = genderDimension.group().reduceCount();
+
+
+        // instanciate the charts
+        var barChart01 = dc.barChart('#bar01'),
+            barChart02 = dc.barChart('#bar02'),
+            barChart03 = dc.barChart('#bar03'),
+            barChart04 = dc.barChart('#bar04'),
+            barChart05 = dc.barChart('#bar05'),
+            barChart06 = dc.barChart('#bar06');
+
+
+        barChart01
+            .dimension(ageDimension)
+            .group(ageGroup)
+            .width($(barChart01.anchor()).parent().width())
+            .height(200)
+            .yAxisLabel("Count")
+            .xAxisLabel("Age")
+            .x(d3.scaleLinear().domain([15, 70]))
+            .brushOn(true);
+
+        barChart02
+            .dimension(ageDimension)
+            .group(ageGroup)
+            .width($(barChart02.anchor()).parent().width())
+            .height(200)
+            .yAxisLabel("Count")
+            .xAxisLabel("Age")
+            .x(d3.scaleLinear().domain([15, 70]))
+            .brushOn(true)
+            .elasticY(true)
+            .centerBar(true);
+
+        barChart03
+            .dimension(genderDimension)
+            .group(genderGroup)
+            .width($(barChart03.anchor()).parent().width())
+            .height(200)
+            .yAxisLabel("Count")
+            .xAxisLabel("Sex")
+            .x(d3.scaleOrdinal())
+            .xUnits(dc.units.ordinal)
+            .title(function (d) { return d.key + ': ' + d.value; })
+            .label(function (d) {
+                var all = ndx.groupAll().reduceCount().value()
+                return d.data.value + " of " + all;
+            })
+            .margins({ top: 20, right: 50, bottom: 30, left: 80 })
+            .clipPadding(20)
+            ;
+
+        barChart04
+            .dimension(genderDimension)
+            .group(genderGroup)
+            .width($(barChart04.anchor()).parent().width())
+            .height(200)
+            .yAxisLabel("Count")
+            .xAxisLabel("Sex")
+            .x(d3.scaleOrdinal())
+            .xUnits(dc.units.ordinal)
+            .y(d3.scaleLinear().domain([0, 600]))
+            .barPadding(0.1)
+            .label(function (d) {
+                var all = ndx.groupAll().reduceCount().value()
+                return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)';
+            }
+            );
+
+        barChart05
+            .dimension(genderDimension)
+            .group(genderGroup)
+            .width($(barChart05.anchor()).parent().width())
+            .height(200)
+            .yAxisLabel("Count")
+            .xAxisLabel("Sex")
+            .x(d3.scaleOrdinal())
+            .xUnits(dc.units.ordinal)
+            .gap(50);
+
+        barChart06
+            .dimension(genderDimension)
+            .group(genderGroup)
+            .width($(barChart06.anchor()).parent().width())
+            .height(200)
+            .yAxisLabel("Count")
+            .xAxisLabel("Sex")
+            .x(d3.scaleOrdinal())
+            .xUnits(dc.units.ordinal)
+            .barPadding(0.1)
+            .outerPadding(2);
+
+        dc.renderAll();
+    };
+</script>
