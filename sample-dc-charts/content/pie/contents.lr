@@ -1,0 +1,348 @@
+title: Pie Charts
+---
+body:
+<section>
+    <div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie01" class="custom-chart"></div>
+                <pre><code class="language-javascript indentFix" linehighlight="5">
+                    dc.pieChart('#pie01')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75);
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie02" class="custom-chart"></div>
+                <pre data-line="8,9"><code class="language-javascript indentFix">
+                    dc.pieChart('#pie02')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .externalLabels(30)
+                        .drawPaths(false);
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie03" class="custom-chart"></div>
+                <pre data-line="9"><code class="language-javascript indentFix" >
+                    dc.pieChart('#pie03')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .externalLabels(30)
+                        .drawPaths(true);
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie04" class="custom-chart"></div>
+                <pre data-line="8"><code class="language-javascript indentFix" >
+                    dc.pieChart('#pie04')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .externalRadiusPadding(20);
+                </code></pre>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 text-center">
+                <div id="pie05" class="custom-chart"></div>
+                <pre data-line="8,9,10,11,12,13,14"><code class="language-javascript indentFix">
+                    dc.pieChart('#pie05')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(100)
+                        .innerRadius(20)
+                        .on('renderlet', function (chart) {
+                            chart
+                                .selectAll('text.pie-slice')
+                                .text(function (d) {
+                                    return d.data.key + ' ' + 
+                                    dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
+                                });
+                        });
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-center">
+                <div id="pie052" class="custom-chart"></div>
+                <pre data-line="10,11,12,13,14,15,16,17,18,19,20,21,22"><code class="language-javascript indentFix">
+                    dc.pieChart('#pie052')
+                      .dimension(petDimension)
+                      .group(petGroup)
+                      .width($(barChart052.anchor()).parent().width())
+                      .height(300)
+                      .radius(100)
+                      .innerRadius(60)
+                      .on('renderlet', function (chart) {
+                        // get the number of cats selected
+                        let pieSlice;
+                        chart.data().forEach(function(d){if(d.key == "Cat") pieSlice = d.value;});
+                        // create an extra text Element if it does not exist
+                        if(d3.select('#circle-value').empty()){
+                          let g = d3.selectAll('#pie052 .pie-slice-group')
+                                    .append("text")
+                                    .attr('text-anchor', 'middle')
+                                    .attr('y', 5)
+                                    .attr('id', 'circle-value');
+                        };
+                        // set value to number of cats
+                        d3.select('#circle-value').text(pieSlice + ' Cats Selected');
+
+                        // add percentages to pie slices
+                        chart
+                            .selectAll('text.pie-slice')
+                            .text(function (d) {
+                              let value = Math.round((d.endAngle - d.startAngle) / (2 * Math.PI) * 100)
+                              return dc.utils.printSingleValue(value) + '%';
+                            });
+                      });
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie06" class="custom-chart"></div>
+                <pre data-line="8"><code class="language-javascript indentFix">
+                    dc.pieChart('#pie06')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .minAngleForLabel(2);
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie07" class="custom-chart"></div>
+                <pre data-line="8"><code class="language-javascript indentFix">
+                    dc.pieChart('#pie07')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .slicesCap(2);
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie08" class="custom-chart"></div>
+                <pre data-line="8,9,10"><code class="language-javascript indentFix">
+                    dc.pieChart('#pie08')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .slicesCap(2)
+                        .othersLabel('Other Animals')
+                        .ordinalColors(['red', 'green', 'blue']);
+                </code></pre>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center">
+                <div id="pie09" class="custom-chart"></div>
+                <pre data-line="8,9,10,11,12,13"><code class="language-javascript indentFix" linehighlight="5">
+                    dc.pieChart('#pie09')
+                        .dimension(petDimension)
+                        .group(petGroup)
+                        .width(350)
+                        .height(300)
+                        .radius(75)
+                        .renderLabel(false)
+                        .legend(dc.legend()
+                            .x(400)
+                            .y(10)
+                            .itemHeight(13)
+                            .gap(5));
+                </code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+---
+scripts:
+<script>
+  var toFix = document.getElementsByClassName("indentFix");
+  for (var elem = 0, elems = toFix.length; elem < elems; elem++) {
+      var lines = toFix[elem].innerHTML.split("\n");
+      var line = lines[1];
+      var leadingSpaces = 1;
+      while (line.charAt(leadingSpaces) == " ") { leadingSpaces++; }
+      for (var i = 1, len = lines.length; i < len; i++) {
+          lines[i] = lines[i].slice(leadingSpaces);
+      }
+      toFix[elem].innerHTML = lines.join("\n");
+  }
+</script>
+<script language="javascript">
+  /* global dc, crossfilter, d3 */
+  d3.csv('../data/pets.csv')
+  .then(function(data) {
+    makeGraphs(data);
+    // draw chart in here!
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+
+  function makeGraphs(pets) {
+      console.log(pets);
+      var mycrossfilter = crossfilter(pets);
+
+      // pet dimension
+      var petDimension = mycrossfilter.dimension(function (data) {return data.rank;});
+      var colorDimension = mycrossfilter.dimension(function (data) {
+        return data.color;
+      });
+      var petGroup = petDimension.group().reduceCount();
+      var colorGroup = colorDimension.group();
+
+      // instanciate the charts
+      var barChart01 = dc.pieChart('#pie01'),
+          barChart02 = dc.pieChart('#pie02'),
+          barChart03 = dc.pieChart('#pie03'),
+          barChart04 = dc.pieChart('#pie04'),
+          barChart05 = dc.pieChart('#pie05'),
+          barChart052 = dc.pieChart('#pie052'),
+          barChart06 = dc.pieChart('#pie06'),
+          barChart07 = dc.pieChart('#pie07'),
+          barChart08 = dc.pieChart('#pie08'),
+          barChart09 = dc.pieChart('#pie09');
+
+      barChart01
+          .dimension(colorDimension)
+          .group(colorGroup)
+          .width($(barChart01.anchor()).parent().width())
+          .height(300)
+          .radius(75);
+
+      barChart02
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart02.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .externalLabels(30)
+          .drawPaths(false);
+
+      barChart03
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart03.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .externalLabels(30)
+          .drawPaths(true);
+
+      // ========================
+
+      barChart04
+      .dimension(petDimension)
+      .group(petGroup)
+          .width($(barChart04.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .externalRadiusPadding(20);
+
+      barChart05
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart05.anchor()).parent().width())
+          .height(300)
+          .radius(100)
+          .innerRadius(20)
+          .on('renderlet', function (chart) {
+              chart
+                  .selectAll('text.pie-slice')
+                  .text(function (d) {
+                      return d.data.key + ' ' + dc.utils.printSingleValue(Math.round((d.endAngle - d.startAngle) / (2 * Math.PI) * 100)) + '%';
+                  });
+          });
+
+      barChart052
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart052.anchor()).parent().width())
+          .height(300)
+          .radius(100)
+          .innerRadius(60)
+          .on('renderlet', function (chart) {
+            let pieSlice;
+            chart.data().forEach(function(d){
+              if(d.key == "Cat") pieSlice = d.value;
+            });
+            if(d3.select('#circle-value').empty()){
+              let g = d3.selectAll('#pie052 .pie-slice-group')
+                        .append("text")
+                        .attr('text-anchor', 'middle')
+                        .attr('y', 5)
+                        .attr('id', 'circle-value');
+            };
+            d3.select('#circle-value').text(pieSlice + ' Cats Selected');
+            chart
+                .selectAll('text.pie-slice')
+                .text(function (d) {
+                  let value = Math.round((d.endAngle - d.startAngle) / (2 * Math.PI) * 100)
+                  return dc.utils.printSingleValue(value) + '%';
+                });
+        });
+
+      barChart06
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart06.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .minAngleForLabel(2);
+
+      barChart07
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart07.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .slicesCap(2);
+
+      barChart08
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart08.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .slicesCap(2)
+          .othersLabel('Other Animals')
+          .ordinalColors(['red', 'green', 'blue']);
+
+      barChart09
+          .dimension(petDimension)
+          .group(petGroup)
+          .width($(barChart09.anchor()).parent().width())
+          .height(300)
+          .radius(75)
+          .renderLabel(false)
+          //.on('pretransition', function (chart, filter) { console.log("pretransition") })
+          //.on('preRender', function (chart) { console.log("preRender") })
+          //.on('postRender', function (chart) { console.log("postRender") })
+          //.on('preRedraw', function (chart) { console.log("preRedraw") })
+          //.on('postRedraw', function (chart) { console.log("postRedraw") })
+          //.on('filtered', function (chart, filter) { console.log("filtered") })
+          //.on('zoomed', function (chart, filter) { console.log("zoomed") })
+          .legend(dc.legend()
+              .x(0)
+              .y(0)
+              .itemHeight(13)
+              .gap(5));
+
+      dc.renderAll();
+  };
+</script>

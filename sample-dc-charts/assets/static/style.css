@@ -1,0 +1,21 @@
+.main-container{
+    margin-top: 56px;    
+}
+code[class*=language-],pre[class*=language-] {
+    font-size: 0.6rem;
+}
+
+.line-highlight:before{
+display: none;
+}
+
+pre.language-javascript {
+	padding-left: 5px;
+}
+
+pre strong {
+    border-bottom: 1px solid darkgrey;
+}
+.description-text{
+    font-size: 0.7rem;
+}
