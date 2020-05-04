@@ -19,3 +19,25 @@ pre strong {
 .description-text{
     font-size: 0.7rem;
 }
+
+.secondary-heading {
+    margin-bottom: 1px;
+    margin-top: 11px;
+}
+
+.nav-header {
+    list-style-type: none;
+}
+
+.list-group-item {
+    padding: .3rem 1.25rem;
+    border: none;
+    font-size: 12px;
+}
+.mixin-description {
+    font-size: 70%;
+    color: #7f7ead;
+    padding-left: 10px;
+    padding-right: 10%;
+    margin-bottom: 4px;
+}
