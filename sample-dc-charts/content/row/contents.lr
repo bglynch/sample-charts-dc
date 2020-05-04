@@ -2,6 +2,15 @@ title: Row Charts
 ---
 body:
 <section>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html">BaseMixin</a></li>
+      <li class="breadcrumb-item"><a href="http://dc-js.github.io/dc.js/docs/html/MarginMixin.html">MarginMixin</a></li>
+      <li class="breadcrumb-item"><a href="http://dc-js.github.io/dc.js/docs/html/ColorMixin.html">ColorMixin</a></li>
+      <li class="breadcrumb-item"><a href="http://dc-js.github.io/dc.js/docs/html/CapMixin.html">CapMixin</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><a target="_blank" href="http://dc-js.github.io/dc.js/docs/html/RowChart.html">RowChart</a></li>
+    </ol>
+  </nav>
   <div class="row">
     <div class="col-3">
       <div id="rowChart01" class="custom-chart"></div>
@@ -29,8 +38,10 @@ body:
           .gap(20);
       </code></pre>
       <dl class="description-text">
-        <dt>elasticX</dt><dd>-  x axis will rescale to auto-fit the data range</dd>
-        <dt>gap</dt><dd>-  set the vertical gap space between rows </dd>
+        <dt>elasticX</dt>
+        <dd>- x axis will rescale to auto-fit the data range</dd>
+        <dt>gap</dt>
+        <dd>- set the vertical gap space between rows </dd>
       </dl>
     </div>
     <div class="col-3">
@@ -61,6 +72,75 @@ body:
         <dd>- Basic row chart</dd>
       </dl>
     </div>
+    <div class="col-3">
+      <div id="rowChart05" class="custom-chart"></div>
+      <pre data-line="7,8"><code class="language-javascript indentFix" >
+        rowChart05
+          .dimension(genderDimension)
+          .group(genderGroup)
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200)
+          .labelOffsetX(50)
+          .labelOffsetY(50);
+      </code></pre>
+      <dl class="description-text">
+        <dt>.labelOffsetX(<integer>)</dt><dd>- set the x offset for the labels in the row</dd>
+        <dt>.labelOffsetY(<integer>)</dt><dd>- set the y offset for the labels in the row</dd>
+      </dl>
+    </div>
+    <div class="col-3">
+      <div id="rowChart06" class="custom-chart"></div>
+      <pre data-line="7,8"><code class="language-javascript indentFix" >
+        rowChart06
+          .dimension(maritalDimension)
+          .group(maritalDimension.group())
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200)
+          .renderTitleLabel(true)
+          .titleLabelOffsetX(20);
+      </code></pre>
+      <dl class="description-text">
+        <dt>renderTitleLabel</dt>
+        <dd>- show labels on the bars</dd>
+        <dt>titleLabelOffsetX</dt>
+        <dd>- offset the labels left</dd>
+      </dl>
+    </div>
+    <div class="col-3">
+      <div id="rowChart07" class="custom-chart"></div>
+      <pre data-line="7"><code class="language-javascript indentFix" >
+        rowChart07
+          .dimension(creditCardDimension)
+          .group(creditCardGroup)
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200)
+          .cap(7);
+      </code></pre>
+      <dl class="description-text">
+        <dt>cap(<integer>)</dt>
+        <dd>- max number of rows</dd>
+      </dl>
+    </div>
+    <div class="col-3">
+      <div id="rowChart08" class="custom-chart"></div>
+      <pre data-line="7,8,9,10"><code class="language-javascript indentFix" >
+        rowChart08
+          .dimension(ageGroupDimension)
+          .group(ageGroupDimension.group())
+          .width($(rowChart01.anchor()).parent().width())
+          .height(200)
+          .fixedBarHeight(13)
+          .ordering(d =>  d.key )
+          .colors(["#66c2a4", "#a04a4a"])
+          .x(d3.scaleLog().base(2).domain([1, 200]).range([0,300]));
+      </code></pre>
+      <dl class="description-text">
+        <dt>fixedBarHeight</dt><dd>- sets the height for the bars</dd>
+        <dt>ordering</dt><dd>- set the ordering of the bars</dd>
+        <dt>colors</dt><dd>- set colors for the bar</dd>
+        <dt>x</dt><dd>- set the scale for the x axis. Set to Log scale above</dd>
+      </dl>
+    </div>
   </div>
 </section>
 ---
@@ -83,6 +163,17 @@ scripts:
   /* global dc, crossfilter, d3 */
   d3.csv('../data/people.csv')
     .then(function (data) {
+      // http://learnjsdata.com/read_data.html
+      data.forEach(function (d) {
+        if (d["CreditCardType"] == "") {
+          d["CreditCardType"] = "no data"
+        }
+        d.age = ~~((Date.now() - new Date(d.DOB)) / (31557600000));
+        d.ageGroup = roundDown(d.age, 10) + "'s'"
+      });
+      return data;
+    })
+    .then(function (data) {
       makeGraphs(data);
     })
     .catch(function (error) {
@@ -93,35 +184,34 @@ scripts:
   function makeGraphs(peopleData) {
     let ndx = crossfilter(peopleData);
 
-    // gender dimension
-    let ageDimension = ndx.dimension(function (data) {
-      return ~~((Date.now() - new Date(data.DOB)) / (31557600000));
-    });
+    // create dimensions
     let genderDimension = ndx.dimension(function (data) { return data.gender; }),
-        maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; });
-        creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; });
+      maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; }),
+      creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; });
+    ageGroupDimension = ndx.dimension(function (data) { return data.ageGroup; });
 
     // create groups
-    let ageGroup = ageDimension.group().reduceCount(),
-        genderGroup = genderDimension.group().reduceCount();
-        maritalGroup = maritalDimension.group().reduceCount();
-        creditCardGroup = creditCardDimension.group().reduceCount();
+    let genderGroup = genderDimension.group().reduceCount(),
+      maritalGroup = maritalDimension.group().reduceCount(),
+      creditCardGroup = creditCardDimension.group().reduceCount();
 
 
     // instanciate the charts
     let rowChart01 = dc.rowChart('#rowChart01');
-        rowChart02 = dc.rowChart('#rowChart02'),
-        rowChart03 = dc.rowChart('#rowChart03'),
-        rowChart04 = dc.rowChart('#rowChart04'),
-
-
+      rowChart02 = dc.rowChart('#rowChart02'),
+      rowChart03 = dc.rowChart('#rowChart03'),
+      rowChart04 = dc.rowChart('#rowChart04'),
+      rowChart05 = dc.rowChart('#rowChart05'),
+      rowChart06 = dc.rowChart('#rowChart06'),
+      rowChart07 = dc.rowChart('#rowChart07'),
+      rowChart08 = dc.rowChart('#rowChart08'),
 
     rowChart01
       .dimension(genderDimension)
       .group(genderGroup)
       .width($(rowChart01.anchor()).parent().width())
       .height(200);
-    
+
     rowChart02
       .dimension(maritalDimension)
       .group(maritalDimension.group())
@@ -129,19 +219,58 @@ scripts:
       .height(200)
       .elasticX(true)
       .gap(20);
-    
+
     rowChart03
       .dimension(creditCardDimension)
       .group(creditCardGroup)
       .width($(rowChart01.anchor()).parent().width())
       .height(200);
-  
+
     rowChart04
-      .dimension(genderDimension)
-      .group(genderGroup)
+      .dimension(ageGroupDimension)
+      .group(ageGroupDimension.group())
       .width($(rowChart01.anchor()).parent().width())
       .height(200);
 
+    rowChart05
+      .dimension(genderDimension)
+      .group(genderGroup)
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200)
+      .labelOffsetX(50)
+      .labelOffsetY(50);
+
+    rowChart06
+      .dimension(maritalDimension)
+      .group(maritalDimension.group())
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200)
+      .renderTitleLabel(true)
+      .titleLabelOffsetX(20);
+
+    rowChart07
+      .dimension(creditCardDimension)
+      .group(creditCardGroup)
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200)
+      .cap(7);
+
+    rowChart08
+      .dimension(ageGroupDimension)
+      .group(ageGroupDimension.group())
+      .width($(rowChart01.anchor()).parent().width())
+      .height(200)
+      .fixedBarHeight(13)
+      .ordering(d =>  d.key )
+      .colors(["#66c2a4", "#a04a4a"])
+      .x(d3.scaleLog().base(2).domain([1, 200]).range([0,300]));
+
     dc.renderAll();
+  };
+
+  let roundDown = function (num, precision) {
+    num = parseFloat(num);
+    if (!precision) return num.toLocaleString();
+    return (Math.floor(num / precision) * precision).toLocaleString();
   };
 </script>
