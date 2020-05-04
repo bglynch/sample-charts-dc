@@ -4,3 +4,81 @@ body:
 
 This is a basic demo website that shows how to use Lektor for a basic
 website with some pages.
+## Mixins
+<ul class="list-group">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+</ul>
+<ul class="list-group">
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html">BaseMixin</a></li>
+    <div class="list-group">
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#addFilterHandler"> <span class="toc-h4">addFilterHandler(addFilterHandler])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#anchor"><span class="toc-h4">anchor([parent] [, chartGroup])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#anchorName"><spanclass="toc-h4">anchorName()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#chartGroup"><spanclass="toc-h4">chartGroup( [chartGroup])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#chartID"><spanclass="toc-h4">chartID()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#commitHandler"><spanclass="toc-h4">commitHandler(commitHandler)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#controlsUseVisibility"><span class="toc-h4">controlsUseVisibility([controlsUseVisibility])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#data"><span class="toc-h4">data([callback])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#dimension"><span class="toc-h4">dimension([dimension])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#expireCache"><spanclass="toc-h4">expireCache()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filter"><spanclass="toc-h4">filter( [filter])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filterAll"><spanclass="toc-h4">filterAll()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filterHandler"><spanclass="toc-h4">filterHandler( [filterHandler])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filterPrinter"><span class="toc-h4">filterPrinter( [filterPrinterFunction])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filters"><span class="toc-h4">filters()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#group"><span class="toc-h4">group( [group] [, name])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#hasFilter"><span class="toc-h4">hasFilter( [filter])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#hasFilterHandler"><span class="toc-h4">hasFilterHandler( [hasFilterHandler])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#height"><span class="toc-h4">height( [height])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#keyAccessor"><span class="toc-h4">keyAccessor( [keyAccessor])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#label"><span class="toc-h4">label( [labelFunction] [,enableLabels])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#legend"><span class="toc-h4">legend([legend])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#minHeight"><span class="toc-h4">minHeight([minHeight])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#minWidth"><span class="toc-h4">minWidth([minWidth])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#on"><span class="toc-h4">on(event,listener)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#onClick"><span class="toc-h4">onClick(datum)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#options"><span class="toc-h4">options(opts)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#ordering"><span class="toc-h4">ordering( [orderFunction])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#redraw"><span class="toc-h4">redraw()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#redrawGroup"><spanclass="toc-h4">redrawGroup()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#removeFilterHandler"><spanclass="toc-h4">removeFilterHandler( [removeFilterHandler])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#render"><span class="toc-h4">render()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#renderGroup"><spanclass="toc-h4">renderGroup()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#renderLabel"><spanclass="toc-h4">renderLabel( [renderLabel])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#renderlet"><spanclass="toc-h4">renderlet(renderletFunction)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#renderTitle"><span class="toc-h4">renderTitle( [renderTitle])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#replaceFilter"><span class="toc-h4">replaceFilter( [filter])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#resetFilterHandler"><span class="toc-h4">resetFilterHandler( [resetFilterHandler])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#resetSvg"><span class="toc-h4">resetSvg()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#root"><span class="toc-h4">root( [rootElement])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#select"><span class="toc-h4">select(sel)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#selectAll"><span class="toc-h4">selectAll(sel)</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#svg"><span class="toc-h4">svg( [svgElement])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#title"><span class="toc-h4">title( [titleFunction])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#transitionDelay"><span class="toc-h4">transitionDelay( [delay])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#transitionDuration"><span class="toc-h4">transitionDuration( [duration])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#turnOffControls"><span class="toc-h4">turnOffControls()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#turnOnControls"><span class="toc-h4">turnOnControls()</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#useViewBoxResizing"><span class="toc-h4">useViewBoxResizing([useViewBoxResizing])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#valueAccessor"><span class="toc-h4">valueAccessor( [valueAccessor])</span></a>
+        <a class="list-group-item" href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html#width"><span class="toc-h4">width( [width])</span></a>
+    </div>
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/BubbleMixin.html">BubbleMixin</a></li>
+    <div class="list-group"><a class="list-group-item" href="#toc2"><span class="toc-h3">Methods</span></a>
+        <a class="list-group-item" href="#elasticRadius"><span class="toc-h4">elasticRadius( [elasticRadius])</span></a>
+        <a class="list-group-item" href="#maxBubbleRelativeSize"><span class="toc-h4">maxBubbleRelativeSize( [relativeSize])</span></a>
+        <a class="list-group-item" href="#minRadius"><span class="toc-h4">minRadius( [radius])</span></a>
+        <a class="list-group-item" href="#minRadiusWithLabel"><span class="toc-h4">minRadiusWithLabel( [radius])</span></a>
+        <a class="list-group-item" href="#r"><span class="toc-h4">r( [bubbleRadiusScale])</span></a>
+        <a class="list-group-item" href="#radiusValueAccessor"><span class="toc-h4">radiusValueAccessor( [radiusValueAccessor])</span></a>
+    </div>
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/CapMixin.html">CapMixin</a></li>
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/ColorMixin.html">ColorMixin</a></li>
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/CoordinateGridMixin.html">CoordinateGridMixin</a></li>
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/MarginMixin.html">MarginMixin</a></li>
+    <li><a href="http://dc-js.github.io/dc.js/docs/html/StackMixin.html">StackMixin</a></li>
+</ul>
