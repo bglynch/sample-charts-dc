@@ -49,7 +49,7 @@ body:
       
           </div>
           
-        <div class="col-6 text-center">
+        <div class="col-6">
             <p>This is a basic Ordinal Bar Chart</p>
             <div id="bar01" class="custom-chart"></div>
             <pre><code class="language-javascript indentFix">barChart01
@@ -62,9 +62,8 @@ body:
               .yAxisLabel("Count")
               .xAxisLabel("Age Bracket");
             </code></pre>
-            
         </div>
-        <div class="col-6 text-center">
+        <div class="col-6">
             <p>This is a basic Numerical Bar Chart</p>
             <div id="bar02" class="custom-chart"></div>
             <pre data-line=""><code class="language-javascript indentFix">barChart02
@@ -154,7 +153,7 @@ body:
                     - Will pad the width by padding * barWidth on each side of the chart</dd>
             </dl>
         </div>
-        <div class="col-6 text-center">
+        <div class="col-6">
           <div id="bar07" class="custom-chart"></div>
           <pre data-line=""><code class="language-javascript indentFix">barChart07
             .dimension(ageDimension)
@@ -166,8 +165,12 @@ body:
             .xAxisLabel("Age")
             .centerBar(true);
           </code></pre>
+          <dl class="description-text">
+            <dt>.centerBar</dt>
+            <dd>- Manually set fixed gap (in px) between bars</dd>
+        </dl>
       </div>
-        <div class="col-6 text-center">
+        <div class="col-6">
           <div id="bar08" class="custom-chart"></div>
           <pre data-line=""><code class="language-javascript indentFix">barChart08
             .dimension(ageDimension)
@@ -180,6 +183,39 @@ body:
             .centerBar(true)
             .round(function(n) { return Math.floor(n) + 0.5; })
             .alwaysUseRounding(true);
+          </code></pre>
+      </div>
+        <div class="col-3">
+          <div id="bar09" class="custom-chart"></div>
+          <pre data-line="8,9,10,11,12,13,14"><code class="language-javascript indentFix">barChart09
+            .dimension(genderDimension)
+            .group(genderGroup)
+            .width($(barChart09.anchor()).parent().width())
+            .height(200)
+            .x(d3.scaleBand())
+            .xUnits(dc.units.ordinal)
+            .y(d3.scaleLinear().domain([0, 600]))
+            .on('renderlet', chart => {
+              ...
+              })
+            .on('postRedraw', function (chart, filter) {
+              let chartBars = chart.selectAll('.bar')._groups[0];
+              });
+          </code></pre>
+      </div>
+        <div class="col-3">
+          <div id="bar10" class="custom-chart"></div>
+          <pre data-line="8,9,10,11"><code class="language-javascript indentFix">barChart10
+            .dimension(genderDimension)
+            .group(genderGroup)
+            .width($(barChart10.anchor()).parent().width())
+            .height(200)
+            .x(d3.scaleBand())
+            .xUnits(dc.units.ordinal)
+            .y(d3.scaleLinear().domain([0, 600]))
+            .label(function (d) {
+              let all = ndx.groupAll().reduceCount().value();
+              return d.data.value + " of " + all;});
           </code></pre>
       </div>
     </div>
@@ -222,123 +258,108 @@ scripts:
     });
 
 
-  function makeGraphs(peopleData) {
-    let ndx = crossfilter(peopleData);
+    function makeGraphs(peopleData) {
+      dc.config.defaultColors(d3.schemePaired);
 
-    // create dimensions
-    let genderDimension = ndx.dimension(function (data) { return data.gender; }),
+      let ndx = crossfilter(peopleData);
+
+      // create dimensions
+      let genderDimension = ndx.dimension(function (data) { return data.gender; }),
         maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; }),
-        creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; });
-        ageDimension = ndx.dimension(function (data) { return data.age; });
+        creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; }),
+        ageDimension = ndx.dimension(function (data) { return data.age; }),
         ageGroupDimension = ndx.dimension(function (data) { return data.ageGroup; });
-      
+
       // create groups
       let genderGroup = genderDimension.group().reduceCount(),
-          maritalGroup = maritalDimension.group().reduceCount(),
-          creditCardGroup = creditCardDimension.group().reduceCount();
-          ageDimensionGroup = ageDimension.group();
+        maritalGroup = maritalDimension.group().reduceCount(),
+        creditCardGroup = creditCardDimension.group().reduceCount(),
+        ageDimensionGroup = ageDimension.group();
 
-
-    // instanciate the charts
-    let barChart01 = dc.barChart('#bar01'),
+      // instanciate the charts
+      let barChart01 = dc.barChart('#bar01'),
         barChart02 = dc.barChart('#bar02'),
         barChart03 = dc.barChart('#bar03'),
         barChart04 = dc.barChart('#bar04'),
         barChart05 = dc.barChart('#bar05'),
         barChart06 = dc.barChart('#bar06'),
         barChart07 = dc.barChart('#bar07'),
-        barChart08 = dc.barChart('#bar08');
+        barChart08 = dc.barChart('#bar08'),
+        barChart09 = dc.barChart('#bar09'),
+        barChart10 = dc.barChart('#bar10');
 
 
-    barChart01
-      .dimension(ageGroupDimension)
-      .group(ageGroupDimension.group())
-      .width($(barChart01.anchor()).parent().width())
-      .height(200)
-      .x(d3.scaleBand())
-      .xUnits(dc.units.ordinal)
-      .yAxisLabel("Count")
-      .xAxisLabel("Age Bracket");
+      barChart01
+        .dimension(ageGroupDimension)
+        .group(ageGroupDimension.group())
+        .width($(barChart01.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .yAxisLabel("Count")
+        .xAxisLabel("Age Bracket");
 
-    barChart02
-      .dimension(ageDimension)
-      .group(ageDimensionGroup)
-      .width($(barChart02.anchor()).parent().width())
-      .height(200)
-      .x(d3.scaleLinear().domain([15, 80]))
-      .yAxisLabel("Count")
-      .xAxisLabel("Age");
-      
-    barChart03
-      .dimension(ageGroupDimension)
-      .group(ageGroupDimension.group())
-      .width($(barChart01.anchor()).parent().width()/2)
-      .height(200)
-      .x(d3.scaleBand())
-      .xUnits(dc.units.ordinal)
-      .yAxisLabel("Count")
-      .xAxisLabel("Age Bracket")
-      .barPadding(.5);
-      
-    barChart04
-      .dimension(ageGroupDimension)
-      .group(ageGroupDimension.group())
-      .width($(barChart01.anchor()).parent().width()/2)
-      .height(200)
-      .x(d3.scaleBand())
-      .xUnits(dc.units.ordinal)
-      .yAxisLabel("Count")
-      .xAxisLabel("Age Bracket")
-      .gap(20);
+      barChart02
+        .dimension(ageDimension)
+        .group(ageDimensionGroup)
+        .width($(barChart02.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleLinear().domain([15, 80]))
+        .yAxisLabel("Count")
+        .xAxisLabel("Age");
 
-    //barChart03
-    //  .dimension(genderDimension)
-    //  .group(genderGroup)
-    //  .width($(barChart03.anchor()).parent().width())
-    //  .height(200)
-    //  .yAxisLabel("Count")
-    //  .xAxisLabel("Sex")
-    //  .x(d3.scaleBand())
-    //  .xUnits(dc.units.ordinal)
-    //  .title(function (d) { return d.key + ': ' + d.value; })
-    //  .label(function (d) {
-    //    var all = ndx.groupAll().reduceCount().value()
-    //    return d.data.value + " of " + all;
-    //  })
-    //  .margins({ top: 20, right: 50, bottom: 30, left: 80 })
-    //  .clipPadding(20)
-    //  ;
-    
-    //    barChart04
-    //      .dimension(genderDimension)
-    //      .group(genderGroup)
-    //      .width($(barChart04.anchor()).parent().width())
-    //      .height(200)
-    //      .yAxisLabel("Count")
-    //      .xAxisLabel("Sex")
-    //      .x(d3.scaleBand())
-    //      .xUnits(dc.units.ordinal)
-    //      .y(d3.scaleLinear().domain([0, 600]))
-    //      .barPadding(0.1)
-    //      .label(function (d) {
-    //        var all = ndx.groupAll().reduceCount().value()
-    //        return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)';
-    //      }
-    //      );
-    
-        barChart05
-          .dimension(genderDimension)
-          .group(genderGroup)
-          .width($(barChart05.anchor()).parent().width())
-          .height(200)
-          .x(d3.scaleBand())
-          .xUnits(dc.units.ordinal)
-          .yAxisLabel("Count")
-          .xAxisLabel("Sex")
-          .barPadding(.1)
-          ;
-    
-        barChart06
+      barChart03
+        .dimension(ageGroupDimension)
+        .group(ageGroupDimension.group())
+        .width($(barChart01.anchor()).parent().width() / 2)
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .yAxisLabel("Count")
+        .xAxisLabel("Age Bracket")
+        .barPadding(.5);
+
+      barChart04
+        .dimension(ageGroupDimension)
+        .group(ageGroupDimension.group())
+        .width($(barChart01.anchor()).parent().width() / 2)
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .yAxisLabel("Count")
+        .xAxisLabel("Age Bracket")
+        .gap(20);
+
+      //    barChart04
+      //      .dimension(genderDimension)
+      //      .group(genderGroup)
+      //      .width($(barChart04.anchor()).parent().width())
+      //      .height(200)
+      //      .yAxisLabel("Count")
+      //      .xAxisLabel("Sex")
+      //      .x(d3.scaleBand())
+      //      .xUnits(dc.units.ordinal)
+      //      .y(d3.scaleLinear().domain([0, 600]))
+      //      .barPadding(0.1)
+      //      .label(function (d) {
+      //        var all = ndx.groupAll().reduceCount().value()
+      //        return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)';
+      //      }
+      //      );
+
+      barChart05
+        .dimension(genderDimension)
+        .group(genderGroup)
+        .width($(barChart05.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .yAxisLabel("Count")
+        .xAxisLabel("Sex")
+        .barPadding(.1)
+        ;
+
+      barChart06
         .dimension(genderDimension)
         .group(genderGroup)
         .width($(barChart06.anchor()).parent().width())
@@ -350,7 +371,7 @@ scripts:
         .barPadding(.1)
         .outerPadding(.2);
 
-        barChart07
+      barChart07
         .dimension(ageDimension)
         .group(ageDimensionGroup)
         .width($(barChart07.anchor()).parent().width())
@@ -360,7 +381,7 @@ scripts:
         .xAxisLabel("Age")
         .centerBar(true);
 
-        barChart08
+      barChart08
         .dimension(ageDimension)
         .group(ageDimensionGroup)
         .width($(barChart08.anchor()).parent().width())
@@ -369,16 +390,84 @@ scripts:
         .yAxisLabel("Count")
         .xAxisLabel("Age")
         .centerBar(true)
-        .round(function(n) { return Math.floor(n) + 0.5; })
+        .round(function (n) { return Math.floor(n) + 0.5; })
         .alwaysUseRounding(true)
         ;
 
-    dc.renderAll();
-  };
+      barChart09
+        .dimension(genderDimension)
+        .group(genderGroup)
+        .width($(barChart09.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .y(d3.scaleLinear().domain([0, 600]))
+        .on('renderlet', chart => {
+          let barsData = [];
+          let bars = chart.selectAll('.bar').each(d => barsData.push(d));
+          //Remove old values (if found)
+          d3.select(bars._groups[0][0].parentNode).select('#inline-labels')
+            .remove();
+          //Create group for labels
+          let gLabels = d3
+            .select(bars._groups[0][0].parentNode)
+            .append('g')
+            .attr('id', 'inline-labels');
+
+          for (let i = bars._groups[0].length - 1; i >= 0; i--) {
+            let b = bars._groups[0][i];
+            //Only create label if bar height is tall enough
+            if (+b.getAttribute('height') < 18 || b.classList.contains('deselected')) continue;
+
+            gLabels
+              .append('text')
+              .text(
+                Math.round(
+                  (barsData[i].data.value * 100) /
+                  ndx.groupAll().reduceCount().value()
+                ) + '%'
+              )
+              .attr('x', +b.getAttribute('x') + b.getAttribute('width') / 2)
+              .attr('y', +b.getAttribute('y') + 0)
+              .attr('text-anchor', 'middle')
+              .attr('fill', 'black');
+
+            gLabels
+              .append('text')
+              .text(barsData[i].data.value)
+              .attr('x', +b.getAttribute('x') + b.getAttribute('width') / 2)
+              .attr('y', +b.getAttribute('y') + 20)
+              .attr('text-anchor', 'middle')
+              .attr('fill', 'white');
+          }
+        })
+        .on('postRedraw', function (chart, filter) {
+          let chartBars = chart.selectAll('.bar')._groups[0];
+        });
+
+      barChart10
+        .dimension(genderDimension)
+        .group(genderGroup)
+        .width($(barChart10.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .y(d3.scaleLinear().domain([0, 600]))
+        .label(function (d) {
+          let all = ndx.groupAll().reduceCount().value();
+          return d.data.value + " of " + all;}
+          );
+
+      dc.renderAll();
+    };
 
   let roundDown = function (num, precision) {
     num = parseFloat(num);
     if (!precision) return num.toLocaleString();
     return (Math.floor(num / precision) * precision).toLocaleString();
   };
+
+  function match_parent_width(chart) {
+    return chart.selectAll()._parents[0].clientWidth;
+  }
 </script>
