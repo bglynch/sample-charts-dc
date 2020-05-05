@@ -227,7 +227,7 @@ scripts:
     let genderDimension = ndx.dimension(function (data) { return data.gender; }),
       maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; }),
       creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; });
-    ageGroupDimension = ndx.dimension(function (data) { return data.ageGroup; });
+      ageGroupDimension = ndx.dimension(function (data) { return data.ageGroup; });
 
     // create groups
     let genderGroup = genderDimension.group().reduceCount(),

@@ -3,89 +3,118 @@ title: Bar Charts
 body:
 <section>
     <div class="row">
-        <div class="col-xs-12 col-sm-4 text-center">
+        <div class="col-12">
+            <div class="row">
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Mixins</li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html">BaseMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/MarginMixin.html">MarginMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/ColorMixin.html">ColorMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/CoordinateGridMixin.html">CoordinateGridMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/StackMixin.html">StackMixin</a></li>
+              </ul>
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Methods</li>
+                <li class="list-group-item"><strong>centerBar</strong></li>
+                <li class="list-group-item"><strong>alwaysUseRounding</strong></li>
+                <li class="list-group-item"><strong>barPadding</strong></li>
+                <li class="list-group-item"><strong>gap</strong></li>
+                <li class="list-group-item"><strong>outerPadding</strong></li>
+              </ul>
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Accepts</li>
+                <li class="list-group-item">Boolean</li>
+                <li class="list-group-item">Boolean</li>
+                <li class="list-group-item">Number</li>
+                <li class="list-group-item">Number</li>
+                <li class="list-group-item">Number</li>
+              </ul>
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Default</li>
+                <li class="list-group-item">false</li>
+                <li class="list-group-item">false</li>
+                <li class="list-group-item">0</li>
+                <li class="list-group-item">2</li>
+                <li class="list-group-item">0.5</li>
+              </ul>
+              <ul class="list-group col-6">
+                <li class="list-group-item list-header">Method Descriptions</li>
+                <li class="list-group-item">whether the bar chart will render each bar centered around the data position on the x-axis</li>
+                <li class="list-group-item">set whether rounding is enabled when bars are centered(flag has no effect if bars are not centered)</li>
+                <li class="list-group-item">set the spacing between bars as a fraction of bar size(Valid values are between 0-1)</li>
+                <li class="list-group-item">set fixed gap (in px) between bars instead of relying on the default auto-generated gap</li>
+                <li class="list-group-item">set the outer padding on an ordinal bar chart(has no effect on non-ordinal charts)</li>
+              </ul>
+            </div>
+      
+          </div>
+          
+        <div class="col-6 text-center">
+            <p>This is a basic Ordinal Bar Chart</p>
             <div id="bar01" class="custom-chart"></div>
-            <pre><code class="language-javascript indentFix">
-                barChart01
-                    .dimension(ageDimension)
-                    .group(ageGroup)
-                    .width($(barChart01.anchor()).parent().width())
-                    .height(200)
-                    .yAxisLabel("Count")
-                    .xAxisLabel("Age")
-                    .x(d3.scaleLinear().domain([15, 70]))
-                    .brushOn(true);
+            <pre><code class="language-javascript indentFix">barChart01
+              .dimension(ageGroupDimension)
+              .group(ageGroupDimension.group())
+              .width($(barChart01.anchor()).parent().width())
+              .height(200)
+              .x(d3.scaleBand())
+              .xUnits(dc.units.ordinal)
+              .yAxisLabel("Count")
+              .xAxisLabel("Age Bracket");
             </code></pre>
+            
         </div>
-        <div class="col-xs-12 col-sm-4 text-center">
+        <div class="col-6 text-center">
+            <p>This is a basic Numerical Bar Chart</p>
             <div id="bar02" class="custom-chart"></div>
-            <pre data-line="11,12"><code class="language-javascript indentFix">
-                barChart02
-                    .dimension(ageDimension)
-                    .group(ageGroup)
-                    .width($(barChart02.anchor()).parent().width())
-                    .height(200)
-                    .yAxisLabel("Count")
-                    .xAxisLabel("Age")
-                    .x(d3.scaleLinear().domain([15, 70]))
-                    .brushOn(true)
-                    .elasticY(true)
-                    .centerBar(true);
+            <pre data-line=""><code class="language-javascript indentFix">barChart02
+              .dimension(ageDimension)
+              .group(ageGroup)
+              .width($(barChart02.anchor()).parent().width())
+              .height(200)
+              .x(d3.scaleLinear().domain([15, 70]))
+              .yAxisLabel("Count")
+              .xAxisLabel("Age");
+              
             </code></pre>
         </div>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-3">
             <div id="bar03" class="custom-chart"></div>
-            <pre data-line="9,10,11,12,13,14,15,16,17"><code class="language-javascript indentFix" >
-                barChart03
-                    .dimension(genderDimension)
-                    .group(genderGroup)
-                    .width($(barChart03.anchor()).parent().width())
-                    .height(200)
-                    .yAxisLabel("Count")
-                    .xAxisLabel("Sex")
-                    .x(d3.scaleOrdinal())
-                    .xUnits(dc.units.ordinal)
-                    .title(function (d) { return d.key + ': ' + d.value; })
-                    .label(function(d) { 
-                        var all = ndx.groupAll().reduceCount().value()
-                        return d.data.value +" of "+all; 
-                    })
-                    .margins({ top: 20, right: 50, bottom: 30, left: 80 })
-                    .clipPadding(20);
-            </code></pre>
-            <dl class="description-text">
-                <dt>.title</dt>
-                <dd>- Shows when hovering over a bar.</dd>
-            </dl>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-xs-12 col-sm-4">
-            <div id="bar04" class="custom-chart"></div>
-            <pre data-line="11,12,13,14,15,16"><code class="language-javascript indentFix">
-                barChart04
-                    .dimension(genderDimension)
-                    .group(genderGroup)
-                    .width($(barChart04.anchor()).parent().width())
-                    .height(200)
-                    .yAxisLabel("Count")
-                    .xAxisLabel("Sex")
-                    .x(d3.scaleOrdinal())
-                    .xUnits(dc.units.ordinal)
-                    .y(d3.scaleLinear().domain([0, 600]))
-                    .barPadding(0.1)
-                    .label(function(d) { 
-                        var all = ndx.groupAll().reduceCount().value()
-                        return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)'; }
-                        );
+            <pre data-line="10"><code class="language-javascript indentFix" >barChart03
+              .dimension(ageGroupDimension)
+              .group(ageGroupDimension.group())
+              .width($(barChart01.anchor()).parent().width()/2)
+              .height(200)
+              .x(d3.scaleBand())
+              .xUnits(dc.units.ordinal)
+              .yAxisLabel("Count")
+              .xAxisLabel("Age Bracket")
+              .barPadding(.5);
             </code></pre>
             <dl class="description-text">
                 <dt>.barPadding</dt>
-                <dd>- Get or set the spacing between bars as a fraction of bar size.<br>
-                    - Valid values are between 0-1.</dd>
+                <dd>- Shows when hovering over a bar.</dd>
             </dl>
         </div>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-3">
+            <div id="bar04" class="custom-chart"></div>
+            <pre data-line="10"><code class="language-javascript indentFix">barChart04
+              .dimension(ageGroupDimension)
+              .group(ageGroupDimension.group())
+              .width($(barChart01.anchor()).parent().width()/2)
+              .height(200)
+              .x(d3.scaleBand())
+              .xUnits(dc.units.ordinal)
+              .yAxisLabel("Count")
+              .xAxisLabel("Age Bracket")
+              .gap(20);
+            </code></pre>
+            <dl class="description-text">
+                <dt>.gap</dt>
+                <dd>- Get or set the spacing between bars as a fraction of bar size</dd>
+            </dl>
+        </div>
+        <div class="col-3">
             <div id="bar05" class="custom-chart"></div>
             <pre data-line="11"><code class="language-javascript indentFix">
                 barChart05
@@ -104,7 +133,7 @@ body:
                 <dd>- Manually set fixed gap (in px) between bars</dd>
             </dl>
         </div>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-3">
             <div id="bar06" class="custom-chart"></div>
             <pre data-line="11,12"><code class="language-javascript indentFix" >
                 barChart06
@@ -125,6 +154,34 @@ body:
                     - Will pad the width by padding * barWidth on each side of the chart</dd>
             </dl>
         </div>
+        <div class="col-6 text-center">
+          <div id="bar07" class="custom-chart"></div>
+          <pre data-line=""><code class="language-javascript indentFix">barChart07
+            .dimension(ageDimension)
+            .group(ageDimensionGroup)
+            .width($(barChart07.anchor()).parent().width())
+            .height(200)
+            .x(d3.scaleLinear().domain([17, 71]))
+            .yAxisLabel("Count")
+            .xAxisLabel("Age")
+            .centerBar(true);
+          </code></pre>
+      </div>
+        <div class="col-6 text-center">
+          <div id="bar08" class="custom-chart"></div>
+          <pre data-line=""><code class="language-javascript indentFix">barChart08
+            .dimension(ageDimension)
+            .group(ageDimensionGroup)
+            .width($(barChart08.anchor()).parent().width())
+            .height(200)
+            .x(d3.scaleLinear().domain([17, 71]))
+            .yAxisLabel("Count")
+            .xAxisLabel("Age")
+            .centerBar(true)
+            .round(function(n) { return Math.floor(n) + 0.5; })
+            .alwaysUseRounding(true);
+          </code></pre>
+      </div>
     </div>
 </section>
 ---
@@ -144,119 +201,184 @@ scripts:
 </script>
 
 <script language="javascript">
-    /* global dc, crossfilter, d3 */
-    d3.csv('../data/people.csv')
-        .then(function (data) {
-            makeGraphs(data);
-            // draw chart in here!
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+  /* global dc, crossfilter, d3 */
+  d3.csv('../data/people.csv')
+    .then(function (data) {
+      // http://learnjsdata.com/read_data.html
+      data.forEach(function (d) {
+        if (d["CreditCardType"] == "") {
+          d["CreditCardType"] = "no data"
+        }
+        d.age = ~~((Date.now() - new Date(d.DOB)) / (31557600000));
+        d.ageGroup = roundDown(d.age, 10) + "'s'"
+      });
+      return data;
+    })
+    .then(function (data) {
+      makeGraphs(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
 
-    function makeGraphs(peopleData) {
-        var ndx = crossfilter(peopleData);
+  function makeGraphs(peopleData) {
+    let ndx = crossfilter(peopleData);
 
-        // gender dimension
-        var ageDimension = ndx.dimension(function (data) {
-            return ~~((Date.now() - new Date(data.DOB)) / (31557600000));
-        });
-        var genderDimension = ndx.dimension(function (data) { return data.gender; });
-
-        var ageGroup = ageDimension.group().reduceCount();
-        var genderGroup = genderDimension.group().reduceCount();
-
-
-        // instanciate the charts
-        var barChart01 = dc.barChart('#bar01'),
-            barChart02 = dc.barChart('#bar02'),
-            barChart03 = dc.barChart('#bar03'),
-            barChart04 = dc.barChart('#bar04'),
-            barChart05 = dc.barChart('#bar05'),
-            barChart06 = dc.barChart('#bar06');
+    // create dimensions
+    let genderDimension = ndx.dimension(function (data) { return data.gender; }),
+        maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; }),
+        creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; });
+        ageDimension = ndx.dimension(function (data) { return data.age; });
+        ageGroupDimension = ndx.dimension(function (data) { return data.ageGroup; });
+      
+      // create groups
+      let genderGroup = genderDimension.group().reduceCount(),
+          maritalGroup = maritalDimension.group().reduceCount(),
+          creditCardGroup = creditCardDimension.group().reduceCount();
+          ageDimensionGroup = ageDimension.group();
 
 
-        barChart01
-            .dimension(ageDimension)
-            .group(ageGroup)
-            .width($(barChart01.anchor()).parent().width())
-            .height(200)
-            .yAxisLabel("Count")
-            .xAxisLabel("Age")
-            .x(d3.scaleLinear().domain([15, 70]))
-            .brushOn(true);
+    // instanciate the charts
+    let barChart01 = dc.barChart('#bar01'),
+        barChart02 = dc.barChart('#bar02'),
+        barChart03 = dc.barChart('#bar03'),
+        barChart04 = dc.barChart('#bar04'),
+        barChart05 = dc.barChart('#bar05'),
+        barChart06 = dc.barChart('#bar06'),
+        barChart07 = dc.barChart('#bar07'),
+        barChart08 = dc.barChart('#bar08');
 
-        barChart02
-            .dimension(ageDimension)
-            .group(ageGroup)
-            .width($(barChart02.anchor()).parent().width())
-            .height(200)
-            .yAxisLabel("Count")
-            .xAxisLabel("Age")
-            .x(d3.scaleLinear().domain([15, 70]))
-            .brushOn(true)
-            .elasticY(true)
-            .centerBar(true);
 
-        barChart03
-            .dimension(genderDimension)
-            .group(genderGroup)
-            .width($(barChart03.anchor()).parent().width())
-            .height(200)
-            .yAxisLabel("Count")
-            .xAxisLabel("Sex")
-            .x(d3.scaleOrdinal())
-            .xUnits(dc.units.ordinal)
-            .title(function (d) { return d.key + ': ' + d.value; })
-            .label(function (d) {
-                var all = ndx.groupAll().reduceCount().value()
-                return d.data.value + " of " + all;
-            })
-            .margins({ top: 20, right: 50, bottom: 30, left: 80 })
-            .clipPadding(20)
-            ;
+    barChart01
+      .dimension(ageGroupDimension)
+      .group(ageGroupDimension.group())
+      .width($(barChart01.anchor()).parent().width())
+      .height(200)
+      .x(d3.scaleBand())
+      .xUnits(dc.units.ordinal)
+      .yAxisLabel("Count")
+      .xAxisLabel("Age Bracket");
 
-        barChart04
-            .dimension(genderDimension)
-            .group(genderGroup)
-            .width($(barChart04.anchor()).parent().width())
-            .height(200)
-            .yAxisLabel("Count")
-            .xAxisLabel("Sex")
-            .x(d3.scaleOrdinal())
-            .xUnits(dc.units.ordinal)
-            .y(d3.scaleLinear().domain([0, 600]))
-            .barPadding(0.1)
-            .label(function (d) {
-                var all = ndx.groupAll().reduceCount().value()
-                return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)';
-            }
-            );
+    barChart02
+      .dimension(ageDimension)
+      .group(ageDimensionGroup)
+      .width($(barChart02.anchor()).parent().width())
+      .height(200)
+      .x(d3.scaleLinear().domain([15, 80]))
+      .yAxisLabel("Count")
+      .xAxisLabel("Age");
+      
+    barChart03
+      .dimension(ageGroupDimension)
+      .group(ageGroupDimension.group())
+      .width($(barChart01.anchor()).parent().width()/2)
+      .height(200)
+      .x(d3.scaleBand())
+      .xUnits(dc.units.ordinal)
+      .yAxisLabel("Count")
+      .xAxisLabel("Age Bracket")
+      .barPadding(.5);
+      
+    barChart04
+      .dimension(ageGroupDimension)
+      .group(ageGroupDimension.group())
+      .width($(barChart01.anchor()).parent().width()/2)
+      .height(200)
+      .x(d3.scaleBand())
+      .xUnits(dc.units.ordinal)
+      .yAxisLabel("Count")
+      .xAxisLabel("Age Bracket")
+      .gap(20);
 
+    //barChart03
+    //  .dimension(genderDimension)
+    //  .group(genderGroup)
+    //  .width($(barChart03.anchor()).parent().width())
+    //  .height(200)
+    //  .yAxisLabel("Count")
+    //  .xAxisLabel("Sex")
+    //  .x(d3.scaleBand())
+    //  .xUnits(dc.units.ordinal)
+    //  .title(function (d) { return d.key + ': ' + d.value; })
+    //  .label(function (d) {
+    //    var all = ndx.groupAll().reduceCount().value()
+    //    return d.data.value + " of " + all;
+    //  })
+    //  .margins({ top: 20, right: 50, bottom: 30, left: 80 })
+    //  .clipPadding(20)
+    //  ;
+    
+    //    barChart04
+    //      .dimension(genderDimension)
+    //      .group(genderGroup)
+    //      .width($(barChart04.anchor()).parent().width())
+    //      .height(200)
+    //      .yAxisLabel("Count")
+    //      .xAxisLabel("Sex")
+    //      .x(d3.scaleBand())
+    //      .xUnits(dc.units.ordinal)
+    //      .y(d3.scaleLinear().domain([0, 600]))
+    //      .barPadding(0.1)
+    //      .label(function (d) {
+    //        var all = ndx.groupAll().reduceCount().value()
+    //        return d.data.key + '(' + Math.floor(d.data.value / all * 100) + '%)';
+    //      }
+    //      );
+    
         barChart05
-            .dimension(genderDimension)
-            .group(genderGroup)
-            .width($(barChart05.anchor()).parent().width())
-            .height(200)
-            .yAxisLabel("Count")
-            .xAxisLabel("Sex")
-            .x(d3.scaleOrdinal())
-            .xUnits(dc.units.ordinal)
-            .gap(50);
-
+          .dimension(genderDimension)
+          .group(genderGroup)
+          .width($(barChart05.anchor()).parent().width())
+          .height(200)
+          .x(d3.scaleBand())
+          .xUnits(dc.units.ordinal)
+          .yAxisLabel("Count")
+          .xAxisLabel("Sex")
+          .barPadding(.1)
+          ;
+    
         barChart06
-            .dimension(genderDimension)
-            .group(genderGroup)
-            .width($(barChart06.anchor()).parent().width())
-            .height(200)
-            .yAxisLabel("Count")
-            .xAxisLabel("Sex")
-            .x(d3.scaleOrdinal())
-            .xUnits(dc.units.ordinal)
-            .barPadding(0.1)
-            .outerPadding(2);
+        .dimension(genderDimension)
+        .group(genderGroup)
+        .width($(barChart06.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .yAxisLabel("Count")
+        .xAxisLabel("Sex")
+        .barPadding(.1)
+        .outerPadding(.2);
 
-        dc.renderAll();
-    };
+        barChart07
+        .dimension(ageDimension)
+        .group(ageDimensionGroup)
+        .width($(barChart07.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleLinear().domain([17, 71]))
+        .yAxisLabel("Count")
+        .xAxisLabel("Age")
+        .centerBar(true);
+
+        barChart08
+        .dimension(ageDimension)
+        .group(ageDimensionGroup)
+        .width($(barChart08.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleLinear().domain([17, 71]))
+        .yAxisLabel("Count")
+        .xAxisLabel("Age")
+        .centerBar(true)
+        .round(function(n) { return Math.floor(n) + 0.5; })
+        .alwaysUseRounding(true)
+        ;
+
+    dc.renderAll();
+  };
+
+  let roundDown = function (num, precision) {
+    num = parseFloat(num);
+    if (!precision) return num.toLocaleString();
+    return (Math.floor(num / precision) * precision).toLocaleString();
+  };
 </script>
