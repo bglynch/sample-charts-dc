@@ -1,0 +1,112 @@
+title: Bar Charts
+---
+body:
+<section>
+    <div class="row">
+          
+        <div class="col-6">
+            <p>This is a basic Ordinal Bar Chart</p>
+            <div id="bar01" class="custom-chart"></div>
+        </div>
+        <div class="col-6">
+          <div id="slider" class="m-5"></div>
+        </div>
+    </div>
+</section>
+---
+scripts:
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.js"></script>
+
+<script language="javascript">
+  /* global dc, crossfilter, d3 */
+  d3.csv('../data/people.csv')
+    .then(function (data) {
+      // http://learnjsdata.com/read_data.html
+      data.forEach(function (d) {
+        if (d["CreditCardType"] == "") {
+          d["CreditCardType"] = "no data"
+        }
+        d.age = ~~((Date.now() - new Date(d.DOB)) / (31557600000));
+        d.ageGroup = roundDown(d.age, 10) + "'s'"
+      });
+      return data;
+    })
+    .then(function (data) {
+      makeGraphs(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+
+    function makeGraphs(peopleData) {
+      dc.config.defaultColors(d3.schemePaired);
+
+      let ndx = crossfilter(peopleData);
+
+      // create dimensions
+      let genderDimension = ndx.dimension(function (data) { return data.gender; }),
+        maritalDimension = ndx.dimension(function (data) { return data.MaritalStatus; }),
+        creditCardDimension = ndx.dimension(function (data) { return data.CreditCardType; }),
+        ageDimension = ndx.dimension(function (data) { return data.age; }),
+        ageGroupDimension = ndx.dimension(function (data) { return data.ageGroup; });
+
+      let youngest = ageDimension.bottom(1)[0].age;
+      let oldest = ageDimension.top(1)[0].age;
+
+      // create groups
+      let genderGroup = genderDimension.group().reduceCount(),
+        maritalGroup = maritalDimension.group().reduceCount(),
+        creditCardGroup = creditCardDimension.group().reduceCount(),
+        ageDimensionGroup = ageDimension.group();
+
+      // instanciate the charts
+      let barChart01 = dc.barChart('#bar01');
+      
+      // create range slider
+      let slider = document.getElementById('slider');
+      noUiSlider.create(slider, {
+          start: [youngest, oldest],
+          step: 1,
+          connect: true,
+          tooltips:true,
+          range: {
+              'min': youngest,
+              'max': oldest
+          }
+      }).on('slide', function (range) {
+        ageDimension.filterRange([range[0], range[1]]);
+        dc.redrawAll();
+      });
+
+
+
+
+      barChart01
+        .dimension(ageGroupDimension)
+        .group(ageGroupDimension.group())
+        .width($(barChart01.anchor()).parent().width())
+        .height(200)
+        .x(d3.scaleBand())
+        .xUnits(dc.units.ordinal)
+        .yAxisLabel("Count")
+        .xAxisLabel("Age Bracket")
+        .on('filtered', function(chart, filter){
+          console.log(chart)
+          console.log(filter)
+        });
+
+
+      dc.renderAll();
+    };
+
+  let roundDown = function (num, precision) {
+    num = parseFloat(num);
+    if (!precision) return num.toLocaleString();
+    return (Math.floor(num / precision) * precision).toLocaleString();
+  };
+
+  function match_parent_width(chart) {
+    return chart.selectAll()._parents[0].clientWidth;
+  }
+</script>
