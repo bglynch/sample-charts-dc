@@ -94,7 +94,8 @@ scripts:
         .on('filtered', function(chart, filter){
           console.log(chart)
           console.log(filter)
-        });
+        })
+        ;
 
 
       dc.renderAll();
