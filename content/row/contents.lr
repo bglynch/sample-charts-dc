@@ -39,14 +39,14 @@ body:
         <ul class="list-group col-6">
           <li class="list-group-item list-header">Method Descriptions</li>
           <li class="list-group-item">x axis will rescale to auto-fit the data range when filtered.</li>
-          <li class="list-group-item">set the fixed bar height</li>
-          <li class="list-group-item">set the vertical gap space between rows on a particular row chart instance</li>
-          <li class="list-group-item">set the x offset (horizontal space to the top left corner of a row) for labels on a particular row chart</li>
-          <li class="list-group-item">set the y offset (vertical space to the top left corner of a row) for labels on a particular row chart</li>
+          <li class="list-group-item">set fixed bar height</li>
+          <li class="list-group-item">set vertical gap space between rows on a particular row chart instance</li>
+          <li class="list-group-item">set x offset (horz space to top left corner of a row) for labels on a particular row chart</li>
+          <li class="list-group-item">set y offset (vert space to top left corner of a row) for labels on a particular row chart</li>
           <li class="list-group-item">Turn on/off Title label rendering (values) using SVG style of text-anchor 'end'</li>
-          <li class="list-group-item">set the x offset (horizontal space between right edge of row and right edge or text</li>
-          <li class="list-group-item">sets the x scale</li>
-          <li class="list-group-item">sets the x axis for the row chart instance</li>
+          <li class="list-group-item">set x offset (horizontal space between right edge of row and right edge or text</li>
+          <li class="list-group-item">set x scale</li>
+          <li class="list-group-item">set x axis for the row chart instance</li>
         </ul>
       </div>
 

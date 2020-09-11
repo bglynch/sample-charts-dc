@@ -39,11 +39,11 @@ body:
               </ul>
               <ul class="list-group col-6">
                 <li class="list-group-item list-header">Method Descriptions</li>
-                <li class="list-group-item">whether the bar chart will render each bar centered around the data position on the x-axis</li>
-                <li class="list-group-item">set whether rounding is enabled when bars are centered(flag has no effect if bars are not centered)</li>
-                <li class="list-group-item">set the spacing between bars as a fraction of bar size(Valid values are between 0-1)</li>
-                <li class="list-group-item">set fixed gap (in px) between bars instead of relying on the default auto-generated gap</li>
-                <li class="list-group-item">set the outer padding on an ordinal bar chart(has no effect on non-ordinal charts)</li>
+                <li class="list-group-item">whether bar chart will render each bar centered around the data position on the x-axis</li>
+                <li class="list-group-item">set whether rounding is enabled when bars are centered(no effect if bars are not centered)</li>
+                <li class="list-group-item">set spacing between bars as fraction of bar size(Valid values are between 0-1)</li>
+                <li class="list-group-item">set fixed gap(in px) between bars</li>
+                <li class="list-group-item">set outer padding on ordinal bar chart(has no effect on non-ordinal charts)</li>
               </ul>
             </div>
       

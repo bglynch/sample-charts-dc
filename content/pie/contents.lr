@@ -60,16 +60,11 @@ body:
             <li class="list-group-item">set whether to draw lines from pie slices to their labels</li>
             <li class="list-group-item">Title to use for the only slice when there is no data</li>
             <li class="list-group-item">Position slice labels offset from the outer edge of the chart</li>
-            <li class="list-group-item">set the external radius padding of the pie chart. This will force the radius of
-              the pie chart to become smaller or larger</li>
-            <li class="list-group-item">set the inner radius of the pie chart. If the inner radius is greater than 0px
-              then the pie chart will be rendered as a doughnut chart</li>
-            <li class="list-group-item">set the minimal slice angle for label rendering. Any slice with a smaller angle
-              will not display a slice label.</li>
-            <li class="list-group-item">set the outer radius. If the radius is not set, it will be half of the minimum
-              of the chart width and height</li>
-            <li class="list-group-item">set the maximum number of slices the pie chart will generate. The top slices are
-              determined by value from high to low.</li>
+            <li class="list-group-item">set external radius padding of the pie chart. Will force radius of the pie chart to become smaller/larger</li>
+            <li class="list-group-item">set inner radius of the pie chart. If inner radius > 0px, then pie chart will be rendered as a doughnut chart</li>
+            <li class="list-group-item">set minimal slice angle for label rendering. Any slice with a smaller angle will not display a slice label.</li>
+            <li class="list-group-item">set outer radius. If the radius is not set, it will be half of the minimum of the chart width and height</li>
+            <li class="list-group-item">set max number of slices the pie chart will generate. The top slices are determined by value from high to low.</li>
           </ul>
         </div>
 
