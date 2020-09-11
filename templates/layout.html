@@ -39,7 +39,7 @@
         <li {% if this._path == '/' %} class="active mr-2"{% else %}class="mr-2" {% endif%}>
           <a href="{{ '/'|url }}">Home</a>
         </li>
-        {% for href, title in [['/data', 'Data'],['/pie', 'Pie'],['/bar', 'Bar'], ['/row', 'Row'], ['/line', 'Line']] %}
+        {% for href, title in [['/mixins', 'Mixins'], ['/data', 'Data'],['/pie', 'Pie'],['/bar', 'Bar'], ['/row', 'Row'], ['/line', 'Line']] %}
         {% if this.is_child_of(href) %}
         <li class="active mr-2">
           {% else %}
