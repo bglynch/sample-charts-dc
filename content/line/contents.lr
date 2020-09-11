@@ -3,6 +3,68 @@ title: Line Charts
 body:
 <section>
     <div class="row">
+        <div class="col-12">
+            <div class="row">
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Mixins</li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/BaseMixin.html">BaseMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/MarginMixin.html">MarginMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/ColorMixin.html">ColorMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/CoordinateGridMixin.html">CoordinateGridMixin</a></li>
+                <li class="list-group-item"><a href="http://dc-js.github.io/dc.js/docs/html/StackMixin.html">StackMixin</a></li>
+              </ul>
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Methods</li>
+                <li class="list-group-item"><strong>curve</strong></li>
+                <li class="list-group-item"><strong>dashStyle</strong></li>
+                <li class="list-group-item"><strong>defined</strong></li>
+                <li class="list-group-item"><strong>dotRadius</strong></li>
+                <li class="list-group-item"><strong>interpolate</strong></li>
+                <li class="list-group-item"><strong>renderArea</strong></li>
+                <li class="list-group-item"><strong>renderDataPoints</strong></li>
+                <li class="list-group-item"><strong>tension</strong></li>
+                <li class="list-group-item"><strong>xyTipsOn</strong></li>
+              </ul>
+              <ul class="list-group col-1">
+                <li class="list-group-item list-header">Type</li>
+                <li class="list-group-item">d3.curve</li>
+                <li class="list-group-item">Array.<Number></li>
+                <li class="list-group-item">function</li>
+                <li class="list-group-item">Number</li>
+                <li class="list-group-item">d3.curve</li>
+                <li class="list-group-item">Boolean</li>
+                <li class="list-group-item">Object</li>
+                <li class="list-group-item">Number</li>
+                <li class="list-group-item">Boolean</li>
+              </ul>
+              <ul class="list-group col-3">
+                <li class="list-group-item list-header">Default</li>
+                <li class="list-group-item">d3.curveLinear</li>
+                <li class="list-group-item">[]</li>
+                <li class="list-group-item">-</li>
+                <li class="list-group-item">5</li>
+                <li class="list-group-item">d3.curveLinear</li>
+                <li class="list-group-item">false</li>
+                <li class="list-group-item">{fillOpacity: 0.8, strokeOpacity: 0.0, radius: 2}</li>
+                <li class="list-group-item">0</li>
+                <li class="list-group-item">false</li>
+              </ul>
+              <ul class="list-group col-6">
+                <li class="list-group-item list-header">Method Descriptions</li>
+                <li class="list-group-item"></li>
+                <li class="list-group-item"></li>
+                <li class="list-group-item"></li>
+                <li class="list-group-item"></li>
+                <li class="list-group-item"></li>
+                <li class="list-group-item">Render area under the line.</li>
+                <li class="list-group-item"></li>
+                <li class="list-group-item">Gets or sets the tension to use for lines drawn, in the range 0 to 1.</li>
+                <li class="list-group-item">Turn on/off mouseover behavior of an individual data point which renders a circle and x/y axis dashed lines back to each respective axis(gnored if the chart brush is on)</li>
+              </ul>
+            </div>
+      
+          </div>
+
         <div class="col-xs-12 col-sm-2 text-center">
             <div id="bar01" class="custom-chart"></div>
             <pre><code class="language-javascript indentFix">
