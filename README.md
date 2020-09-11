@@ -10,3 +10,18 @@ Bootstrap
 d3.js library  
 dc.js library  
 crossfilter.js library 
+Lektor
+
+### Run Locally
+```bash
+git clone https://github.com/bglynch/sample-charts-dc.git
+cd sample-charts-dc
+pip install virtualenv
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install requirements.txt
+lektor server
+```
+
+
+
